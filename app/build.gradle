@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+project.ext.ASSET_DIR = projectDir.toString() + '/src/main/assets'
+
+assert file(project.ext.ASSET_DIR + "/model.tflite").exists()
+assert file(project.ext.ASSET_DIR + "/labels.txt").exists()
+
+android {
+    compileSdkVersion 30
+    defaultConfig {
+        applicationId "org.tensorflow.lite.examples.classification"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    aaptOptions {
+        noCompress "tflite"  // Your model's file extension: "tflite", "lite", etc.
+    }
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    androidTestImplementation 'junit:junit:4.12'
+
+    // Build off of nightly TensorFlow Lite
+    // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite
+    runtimeOnly group: 'org.tensorflow', name: 'tensorflow-lite', version: '2.4.0'
+    // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite-gpu
+    implementation group: 'org.tensorflow', name: 'tensorflow-lite-gpu', version: '2.3.0'
+    // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite-support
+    implementation group: 'org.tensorflow', name: 'tensorflow-lite-support', version: '0.1.0'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+
+    // Use local TensorFlow library
+    // implementation 'org.tensorflow:tensorflow-lite-local:0.0.0'
+}
