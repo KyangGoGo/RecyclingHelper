@@ -17,6 +17,7 @@
 package org.tensorflow.lite.examples.classification;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -39,8 +40,10 @@ import android.util.Size;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -51,6 +54,8 @@ import androidx.annotation.UiThread;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.nio.ByteBuffer;
 import java.util.List;
+
+import org.tensorflow.lite.examples.classification.customdialog.CustomDialog;
 import org.tensorflow.lite.examples.classification.env.ImageUtils;
 import org.tensorflow.lite.examples.classification.env.Logger;
 import org.tensorflow.lite.examples.classification.tflite.Classifier.Device;
@@ -98,6 +103,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
   private Device device = Device.CPU;
   private int numThreads = -1;
+
+  private CustomDialog customDialog;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -189,6 +196,11 @@ public abstract class CameraActivity extends AppCompatActivity
 
     device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
     numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
+
+    //결과값 클릭 이벤트 설정
+    recognitionValueTextView.setOnClickListener(this);
+    recognition1ValueTextView.setOnClickListener(this);
+    recognition2ValueTextView.setOnClickListener(this);
   }
 
   protected int[] getRgbBytes() {
@@ -616,6 +628,12 @@ public abstract class CameraActivity extends AppCompatActivity
       }
       setNumThreads(--numThreads);
       threadsTextView.setText(String.valueOf(numThreads));
+    } else if (v.getId() == R.id.detected_item_value){
+      showDialog((String) recognitionTextView.getText());
+    } else if (v.getId() == R.id.detected_item1_value){
+      showDialog((String) recognition1TextView.getText());
+    } else if (v.getId() == R.id.detected_item2_value){
+      showDialog((String) recognition2TextView.getText());
     }
   }
 
@@ -629,5 +647,25 @@ public abstract class CameraActivity extends AppCompatActivity
   @Override
   public void onNothingSelected(AdapterView<?> parent) {
     // Do nothing.
+  }
+
+  //Dialog 함수
+  public void showDialog(String text){
+    customDialog = new CustomDialog(CameraActivity.this, text);
+
+    customDialog.show(); // 다이얼로그 띄우기
+    customDialog.findViewById(R.id.noBtn).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        customDialog.dismiss();
+      }
+    });
+    // 네 버튼
+    customDialog.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        customDialog.dismiss();
+      }
+    });
   }
 }

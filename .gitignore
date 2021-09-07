@@ -11,3 +11,5 @@
 
 /.gradle/
 /.idea/
+cardboard TFLite/ 
+app/src/main/assets/model.tflite
