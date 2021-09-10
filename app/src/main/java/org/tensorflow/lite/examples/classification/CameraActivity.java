@@ -21,6 +21,8 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -46,6 +48,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,10 +91,10 @@ public abstract class CameraActivity extends AppCompatActivity
   private BottomSheetBehavior<LinearLayout> sheetBehavior;
   protected TextView recognitionTextView,
       recognition1TextView,
-      recognition2TextView,
-      recognitionValueTextView,
-      recognition1ValueTextView,
-      recognition2ValueTextView;
+      recognition2TextView;
+//      recognitionValueTextView,
+//      recognition1ValueTextView,
+//      recognition2ValueTextView;
   protected TextView frameValueTextView,
       cropValueTextView,
       cameraResolutionTextView,
@@ -105,6 +109,14 @@ public abstract class CameraActivity extends AppCompatActivity
   private int numThreads = -1;
 
   private CustomDialog customDialog;
+
+  private ProgressBar recognitionProgressbar,
+      recognitionProgressbar1,
+      recognitionProgressbar2;
+
+  private RelativeLayout recognitionRelativeLayout,
+      recognitionRelativeLayout1,
+      recognitionRelativeLayout2;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -177,11 +189,12 @@ public abstract class CameraActivity extends AppCompatActivity
         });
 
     recognitionTextView = findViewById(R.id.detected_item);
-    recognitionValueTextView = findViewById(R.id.detected_item_value);
     recognition1TextView = findViewById(R.id.detected_item1);
-    recognition1ValueTextView = findViewById(R.id.detected_item1_value);
     recognition2TextView = findViewById(R.id.detected_item2);
-    recognition2ValueTextView = findViewById(R.id.detected_item2_value);
+    
+    recognitionRelativeLayout = findViewById(R.id.item_relative);
+    recognitionRelativeLayout1 = findViewById(R.id.item1_relative);
+    recognitionRelativeLayout2 = findViewById(R.id.item2_relative);
 
     frameValueTextView = findViewById(R.id.frame_info);
     cropValueTextView = findViewById(R.id.crop_info);
@@ -197,10 +210,17 @@ public abstract class CameraActivity extends AppCompatActivity
     device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
     numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
 
+    //progressbar
+    recognitionProgressbar = findViewById(R.id.detected_item_progress);
+    recognitionProgressbar1 = findViewById(R.id.detected_item_progress1);
+    recognitionProgressbar2 = findViewById(R.id.detected_item_progress2);
+
     //결과값 클릭 이벤트 설정
-    recognitionValueTextView.setOnClickListener(this);
-    recognition1ValueTextView.setOnClickListener(this);
-    recognition2ValueTextView.setOnClickListener(this);
+    recognitionRelativeLayout.setOnClickListener(this);
+    recognitionRelativeLayout1.setOnClickListener(this);
+    recognitionRelativeLayout2.setOnClickListener(this);
+
+
   }
 
   protected int[] getRgbBytes() {
@@ -530,26 +550,33 @@ public abstract class CameraActivity extends AppCompatActivity
     if (results != null && results.size() >= 3) {
       Recognition recognition = results.get(0);
       if (recognition != null) {
-        if (recognition.getTitle() != null) recognitionTextView.setText(recognition.getTitle());
-        if (recognition.getConfidence() != null)
-          recognitionValueTextView.setText(
-              String.format("%.2f", (100 * recognition.getConfidence())) + "%");
+        if (recognition.getTitle() != null) {
+          recognitionTextView.setText(recognition.getTitle());
+        }
+        if (recognition.getConfidence() != null){
+//          recognitionValueTextView.setText(String.format("%.2f", (100 * recognition.getConfidence())) + "%");
+          recognitionProgressbar.setProgress((int)(100 * recognition.getConfidence()));
+        }
       }
 
       Recognition recognition1 = results.get(1);
       if (recognition1 != null) {
         if (recognition1.getTitle() != null) recognition1TextView.setText(recognition1.getTitle());
-        if (recognition1.getConfidence() != null)
-          recognition1ValueTextView.setText(
-              String.format("%.2f", (100 * recognition1.getConfidence())) + "%");
+        if (recognition1.getConfidence() != null) {
+//          recognition1ValueTextView.setText(String.format("%.2f", (100 * recognition1.getConfidence())) + "%");
+          recognitionProgressbar1.setProgress((int)(100 * recognition1.getConfidence()));
+          recognitionProgressbar1.setProgressTintList(ColorStateList.valueOf(Color.GRAY));
+        }
       }
 
       Recognition recognition2 = results.get(2);
       if (recognition2 != null) {
         if (recognition2.getTitle() != null) recognition2TextView.setText(recognition2.getTitle());
-        if (recognition2.getConfidence() != null)
-          recognition2ValueTextView.setText(
-              String.format("%.2f", (100 * recognition2.getConfidence())) + "%");
+        if (recognition2.getConfidence() != null) {
+//          recognition2ValueTextView.setText(String.format("%.2f", (100 * recognition2.getConfidence())) + "%");
+          recognitionProgressbar2.setProgress((int)(100 * recognition2.getConfidence()));
+          recognitionProgressbar2.setProgressTintList(ColorStateList.valueOf(Color.GRAY));
+        }
       }
     }
   }
@@ -628,11 +655,12 @@ public abstract class CameraActivity extends AppCompatActivity
       }
       setNumThreads(--numThreads);
       threadsTextView.setText(String.valueOf(numThreads));
-    } else if (v.getId() == R.id.detected_item_value){
+    }
+    else if (v.getId() == R.id.item_relative){
       showDialog((String) recognitionTextView.getText());
-    } else if (v.getId() == R.id.detected_item1_value){
+    } else if (v.getId() == R.id.item1_relative){
       showDialog((String) recognition1TextView.getText());
-    } else if (v.getId() == R.id.detected_item2_value){
+    } else if (v.getId() == R.id.item2_relative){
       showDialog((String) recognition2TextView.getText());
     }
   }
