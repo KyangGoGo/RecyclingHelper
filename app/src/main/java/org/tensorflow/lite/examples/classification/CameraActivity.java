@@ -17,12 +17,13 @@
 package org.tensorflow.lite.examples.classification;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -39,13 +40,13 @@ import android.os.HandlerThread;
 import android.os.Trace;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Size;
+import android.view.Display;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -60,6 +61,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 
 import org.tensorflow.lite.examples.classification.customdialog.CustomDialog;
+import org.tensorflow.lite.examples.classification.data.Data;
 import org.tensorflow.lite.examples.classification.env.ImageUtils;
 import org.tensorflow.lite.examples.classification.env.Logger;
 import org.tensorflow.lite.examples.classification.tflite.Classifier.Device;
@@ -91,7 +93,8 @@ public abstract class CameraActivity extends AppCompatActivity
   private BottomSheetBehavior<LinearLayout> sheetBehavior;
   protected TextView recognitionTextView,
       recognition1TextView,
-      recognition2TextView;
+      recognition2TextView,
+      additionalExplanation;
 //      recognitionValueTextView,
 //      recognition1ValueTextView,
 //      recognition2ValueTextView;
@@ -209,6 +212,9 @@ public abstract class CameraActivity extends AppCompatActivity
 
     device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
     numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
+
+    //추가정보 설명글
+    additionalExplanation = findViewById(R.id.additional_explanation);
 
     //progressbar
     recognitionProgressbar = findViewById(R.id.detected_item_progress);
@@ -552,6 +558,9 @@ public abstract class CameraActivity extends AppCompatActivity
       if (recognition != null) {
         if (recognition.getTitle() != null) {
           recognitionTextView.setText(recognition.getTitle());
+          int getItem = Data.findItem(recognition.getTitle());
+          if( getItem != -1 ) additionalExplanation.setText(Data.additional_explanation[getItem]);
+          else additionalExplanation.setText("결과x");
         }
         if (recognition.getConfidence() != null){
 //          recognitionValueTextView.setText(String.format("%.2f", (100 * recognition.getConfidence())) + "%");
@@ -561,7 +570,9 @@ public abstract class CameraActivity extends AppCompatActivity
 
       Recognition recognition1 = results.get(1);
       if (recognition1 != null) {
-        if (recognition1.getTitle() != null) recognition1TextView.setText(recognition1.getTitle());
+        if (recognition1.getTitle() != null) {
+          recognition1TextView.setText(recognition1.getTitle());
+        }
         if (recognition1.getConfidence() != null) {
 //          recognition1ValueTextView.setText(String.format("%.2f", (100 * recognition1.getConfidence())) + "%");
           recognitionProgressbar1.setProgress((int)(100 * recognition1.getConfidence()));
@@ -571,7 +582,9 @@ public abstract class CameraActivity extends AppCompatActivity
 
       Recognition recognition2 = results.get(2);
       if (recognition2 != null) {
-        if (recognition2.getTitle() != null) recognition2TextView.setText(recognition2.getTitle());
+        if (recognition2.getTitle() != null) {
+          recognition2TextView.setText(recognition2.getTitle());
+        }
         if (recognition2.getConfidence() != null) {
 //          recognition2ValueTextView.setText(String.format("%.2f", (100 * recognition2.getConfidence())) + "%");
           recognitionProgressbar2.setProgress((int)(100 * recognition2.getConfidence()));
@@ -681,19 +694,36 @@ public abstract class CameraActivity extends AppCompatActivity
   public void showDialog(String text){
     customDialog = new CustomDialog(CameraActivity.this, text);
 
+   //모서리 둥굴게 만들기
+    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
     customDialog.show(); // 다이얼로그 띄우기
-    customDialog.findViewById(R.id.noBtn).setOnClickListener(new View.OnClickListener() {
+    //자세히 보기 버튼
+    customDialog.findViewById(R.id.detail_button).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         customDialog.dismiss();
       }
     });
-    // 네 버튼
-    customDialog.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+    // 닫기 버튼
+    customDialog.findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         customDialog.dismiss();
       }
     });
+
+    //핸드폰 크기에 따라 dialog 크기 다르게 하기기
+    Display display = getWindowManager().getDefaultDisplay();
+    Point size = new Point();
+    display.getSize(size);
+
+    Window window = customDialog.getWindow();
+
+    int x = (int)(size.x * 0.8f);
+    int y = (int)(size.y * 0.7f);
+
+    window.setLayout(x, y);
   }
 }
