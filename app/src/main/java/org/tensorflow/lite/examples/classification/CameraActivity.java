@@ -19,6 +19,7 @@ package org.tensorflow.lite.examples.classification;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -691,8 +692,8 @@ public abstract class CameraActivity extends AppCompatActivity
   }
 
   //Dialog 함수
-  public void showDialog(String text){
-    customDialog = new CustomDialog(CameraActivity.this, text);
+  public void showDialog(String title){
+    customDialog = new CustomDialog(CameraActivity.this, title);
 
    //모서리 둥굴게 만들기
     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -704,6 +705,9 @@ public abstract class CameraActivity extends AppCompatActivity
       @Override
       public void onClick(View view) {
         customDialog.dismiss();
+        Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+        intent.putExtra("title", title);
+        startActivity(intent);
       }
     });
     // 닫기 버튼
