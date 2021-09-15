@@ -8,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import org.tensorflow.lite.examples.classification.FragmentFirst;
 import org.tensorflow.lite.examples.classification.FragmentSecond;
 import org.tensorflow.lite.examples.classification.FragmentThird;
+import org.tensorflow.lite.examples.classification.data.Data;
 
 public class MyAdapter extends FragmentStateAdapter {
 
@@ -30,7 +31,7 @@ public class MyAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return Data.viewPage;
     }
 
     public int getRealPosition(int position) { return position % mCount; }

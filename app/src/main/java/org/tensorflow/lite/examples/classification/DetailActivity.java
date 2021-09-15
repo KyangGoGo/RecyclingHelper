@@ -3,6 +3,7 @@ package org.tensorflow.lite.examples.classification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,16 +13,21 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import org.tensorflow.lite.examples.classification.data.Data;
 import org.tensorflow.lite.examples.classification.viewpager2.MyAdapter;
 
 import me.relex.circleindicator.CircleIndicator3;
 
 public class DetailActivity extends FragmentActivity {
 
+    //Viewpager
     private ViewPager2 mPager;
     private FragmentStateAdapter pagerAdapter;
-    private int num_page = 3;
     private CircleIndicator3 mIndicator;
+
+    private TextView displayTitle,
+        displayDay;
+    private ImageView displayImage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,20 +36,18 @@ public class DetailActivity extends FragmentActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-
-        TextView textView = findViewById(R.id.title);
         String title = bundle.getString("title");
-        if(title != null) textView.setText(title);
+        if(title != null){ upperBarSetting(title); }
 
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
         //Adapter
-        pagerAdapter = new MyAdapter(this, num_page);
+        pagerAdapter = new MyAdapter(this, Data.viewPage);
         mPager.setAdapter(pagerAdapter);
         //Indicator
         mIndicator = findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
-        mIndicator.createIndicators(num_page,0);
+        mIndicator.createIndicators(Data.viewPage,0);
         //ViewPager Setting
         mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         mPager.setCurrentItem(1000);
@@ -61,7 +65,7 @@ public class DetailActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                mIndicator.animatePageSelected(position%num_page);
+                mIndicator.animatePageSelected(position%Data.viewPage);
             }
 
         });
@@ -85,6 +89,20 @@ public class DetailActivity extends FragmentActivity {
                 }
             }
         });
-
+    }
+    private void upperBarSetting(String text){
+        int isExistItem = Data.findItem(text);
+        displayImage = findViewById(R.id.display_image);
+        displayTitle = findViewById(R.id.display_title);
+        displayDay = findViewById(R.id.display_day);
+        if (isExistItem!=-1){ // 해당 아이템이 있을 경우
+            displayImage.setImageResource(Data.images[isExistItem]);
+            displayTitle.setText(text);
+            displayDay.setText(Data.discharge_day[isExistItem]);
+        }else{
+            displayImage.setImageResource(R.drawable.recycle);
+            displayTitle.setText("값 없음");
+            displayDay.setText("값 없음");
+        }
     }
 }
