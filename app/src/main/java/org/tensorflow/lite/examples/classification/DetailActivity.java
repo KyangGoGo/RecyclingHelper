@@ -3,10 +3,8 @@ package org.tensorflow.lite.examples.classification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.BundleCompat;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -19,7 +17,8 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
         TextView textView = findViewById(R.id.title);
-        textView.setText(bundle.getString("title"));
+        String title = bundle.getString("title");
+        if(title != null) textView.setText(title);
 
     }
 }
