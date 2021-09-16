@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_weight="1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,20 +36,22 @@
     </LinearLayout>
 
     <FrameLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="320dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager"
-            android:clipToPadding="false"
-            android:clipChildren="false"
             android:layout_width="match_parent"
-            android:layout_height="320dp" />
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false" />
 
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom" />
     </FrameLayout>
 </LinearLayout>

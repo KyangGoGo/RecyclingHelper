@@ -17,6 +17,8 @@ public class FragmentFirst extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_1p, container, false);
 
+
+
         return rootView;
     }
 }
