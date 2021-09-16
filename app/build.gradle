@@ -52,4 +52,8 @@ dependencies {
 
     // Use local TensorFlow library
     // implementation 'org.tensorflow:tensorflow-lite-local:0.0.0'
+
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    // https://mvnrepository.com/artifact/me.relex/circleindicator
+    implementation group: 'me.relex', name: 'circleindicator', version: '2.1.6'
 }

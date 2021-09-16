@@ -4,6 +4,8 @@ import org.tensorflow.lite.examples.classification.R;
 
 public class Data {
 
+    public static Integer viewPage = 3;
+
     public static String[] items = {"paper", "can", "glass",
             "plastic", "plastic_bag", "battery", "styrofoam"};
     public static String[] classification = {"종이류", "캔류", "유리류", "플라스틱류", "비닐류", "폐전지", "폐스티로폼"};
