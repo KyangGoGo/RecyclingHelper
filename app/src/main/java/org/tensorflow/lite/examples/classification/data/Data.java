@@ -60,6 +60,22 @@ public class Data {
             R.drawable.battery,
             R.drawable.styrofoam
     };
+    public static String[] paperProduct = {
+        "신문지",
+        "책자, 노트, 전단지, 쇼핑백",
+        "상자류(종이박스, 기타 골판지)"
+    };
+    public static Integer[] paperImage = {
+        R.drawable.newspaper,
+        R.drawable.note,
+        R.drawable.box
+    };
+    public static String[] paperExplanation = {
+        "뉴스 설명",
+        "책자, 노트, 전단지, 쇼핑백 설명",
+        "상자류 설명"
+    };
+
 
     public static int findItem(String item){
         for(int i = 0; i< Data.items.length; i++){
