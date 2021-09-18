@@ -60,7 +60,7 @@ public class FragmentFirst extends Fragment {
 
         LinearLayout productExplanationAndImage = new LinearLayout(getContext());
         productExplanationAndImage.setOrientation(LinearLayout.HORIZONTAL);
-        
+
         //실제 값 셋팅
         TextView productName = new TextView(getContext());
         productName.setText(lineName);

@@ -6,8 +6,8 @@
     <LinearLayout
         android:id="@+id/product_line"
         android:layout_width="match_parent"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="35dp"
         android:layout_height="match_parent"
         android:background="#ffcccc"
         android:orientation="vertical">
