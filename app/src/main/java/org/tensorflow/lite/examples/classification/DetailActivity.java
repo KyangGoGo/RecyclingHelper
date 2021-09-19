@@ -43,17 +43,12 @@ public class DetailActivity extends FragmentActivity {
         if(title != null){
             Log.d("뜨냐/",title);
             upperBarSetting(title);
-
-            FragmentFirst fragmentFirst = new FragmentFirst();
-            Bundle tossBundle = new Bundle();
-            tossBundle.putString("title", title);
-            fragmentFirst.setArguments(tossBundle);
         }
 
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
         //Adapter
-        pagerAdapter = new MyAdapter(this, Data.viewPage);
+        pagerAdapter = new MyAdapter(this, Data.viewPage, title);
         mPager.setAdapter(pagerAdapter);
         //Indicator
         mIndicator = findViewById(R.id.indicator);

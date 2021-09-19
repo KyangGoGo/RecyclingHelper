@@ -36,6 +36,7 @@
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/fragment_frame"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"

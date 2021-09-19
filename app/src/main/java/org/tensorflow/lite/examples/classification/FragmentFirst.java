@@ -29,6 +29,11 @@ public class FragmentFirst extends Fragment {
     private ViewGroup rootView;
     private LinearLayout productLine;
     private int size = 350;
+    private String title;
+
+    public FragmentFirst(String title){
+        this.title = title;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,12 +45,14 @@ public class FragmentFirst extends Fragment {
         productLine = rootView.findViewById(R.id.product_line);
 
         Log.d("뜨냐?", "전");
-        if(getArguments() != null){
-            String pa = getArguments().getString("title");
-            TextView textView = rootView.findViewById(R.id.testText);
-            textView.setText(pa);
-            Log.d("뜨냐", pa);
-        }
+//        Bundle bundle = this.getArguments();
+//        if(bundle != null){
+//            String pa = bundle.getString("title");
+//            TextView textView = rootView.findViewById(R.id.testText);
+//            textView.setText(pa);
+//            Log.d("뜨냐", pa);
+//        }
+        Log.d("뜨냐", title);
         Log.d("뜨냐?", "후");
 
 
