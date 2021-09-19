@@ -45,13 +45,6 @@ public class FragmentFirst extends Fragment {
         productLine = rootView.findViewById(R.id.product_line);
 
         Log.d("뜨냐?", "전");
-//        Bundle bundle = this.getArguments();
-//        if(bundle != null){
-//            String pa = bundle.getString("title");
-//            TextView textView = rootView.findViewById(R.id.testText);
-//            textView.setText(pa);
-//            Log.d("뜨냐", pa);
-//        }
         Log.d("뜨냐", title);
         Log.d("뜨냐?", "후");
 

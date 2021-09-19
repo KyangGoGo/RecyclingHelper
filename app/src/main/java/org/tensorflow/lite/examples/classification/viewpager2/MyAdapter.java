@@ -12,12 +12,12 @@ import org.tensorflow.lite.examples.classification.data.Data;
 
 public class MyAdapter extends FragmentStateAdapter {
 
-    public int mCount;
+    public int count;
     private String title;
 
     public MyAdapter(FragmentActivity fa, int count, String title) {
         super(fa);
-        mCount = count;
+        this.count = count;
         this.title = title;
     }
 
@@ -36,6 +36,6 @@ public class MyAdapter extends FragmentStateAdapter {
         return Data.viewPage;
     }
 
-    public int getRealPosition(int position) { return position % mCount; }
+    public int getRealPosition(int position) { return position % count; }
 
 }

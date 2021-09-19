@@ -71,10 +71,79 @@ public class Data {
         R.drawable.box
     };
     public static String[] paperExplanation = {
-        "뉴스 설명",
-        "책자, 노트, 전단지, 쇼핑백 설명",
-        "상자류 설명"
+            "뉴스 설명",
+            "책자, 노트, 전단지, 쇼핑백 설명",
+            "상자류 설명"
     };
+    public static String[] warningText = {
+            "흰색 종량제 봉투에 버려주세요",
+            "w2",
+            "w3",
+            "w4",
+            "w5",
+            "w6",
+            "w7",
+    };
+    public static String[][] waringContent = {
+            {"다른 재질과 혼합된 종이", "종이가 아닌것", "이물질 등으로 오염된 종이"},
+            {"wc2", "wc2"},
+            {"wc3"},
+            {"wc4", "wc4", "wc4"},
+            {"wc5", "wc5"},
+            {"wc6", "wc6", "wc6", "wc6"},
+            {"wc7"}
+    };
+    public static Integer[][][] warningImage = {
+            {
+                    {R.drawable.mixed_paper, R.drawable.gold_foil, R.drawable.wall_paper},
+                    {R.drawable.non_woven},
+                    {R.drawable.oily_paper, R.drawable.contaminated_paper},
+            },
+            {
+              //캔류
+            },
+            {
+              //유리류
+            },
+            {
+              //플라스틱류
+            },
+            {
+              //비닐류
+            },
+            {
+              //폐전지
+            },
+            {
+                //폐스티로폼폼
+           }
+    };
+    public static String[][][] warningMessage = {
+            {
+                    {"다른재질과혼합된종이", "금박지,은박지", "다른 재질이 혼합된 벽지"},
+                    {"부직포"},
+                    {"기름 오염", "음식물 오염"},
+            },
+            {
+                    //캔류
+            },
+            {
+                    //유리류
+            },
+            {
+                    //플라스틱류
+            },
+            {
+                    //비닐류
+            },
+            {
+                    //폐전지
+            },
+            {
+                    //폐스티로폼폼
+            }
+    };
+
 
 
     public static int findItem(String item){
