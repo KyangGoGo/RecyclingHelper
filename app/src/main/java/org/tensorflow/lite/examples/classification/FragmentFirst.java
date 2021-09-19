@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import org.tensorflow.lite.examples.classification.data.Data;
+import org.w3c.dom.Text;
 
 public class FragmentFirst extends Fragment {
 
@@ -36,6 +38,16 @@ public class FragmentFirst extends Fragment {
 
         //최고 layout
         productLine = rootView.findViewById(R.id.product_line);
+
+        Log.d("뜨냐?", "전");
+        if(getArguments() != null){
+            String pa = getArguments().getString("title");
+            TextView textView = rootView.findViewById(R.id.testText);
+            textView.setText(pa);
+            Log.d("뜨냐", pa);
+        }
+        Log.d("뜨냐?", "후");
+
 
         int len = Data.paperProduct.length;
 
