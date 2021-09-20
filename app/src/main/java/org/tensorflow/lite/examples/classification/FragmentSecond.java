@@ -54,7 +54,6 @@ public class FragmentSecond extends Fragment {
         for (int i = 0; i < Data.warningImage[findItem].length; i++) {
             LinearLayout lineWrap = new LinearLayout(getContext());
             lineWrap.setOrientation(LinearLayout.VERTICAL);
-            lineWrap.setBackgroundColor(Color.GRAY);
             TextView wrapContent = new TextView(getContext());
             wrapContent.setText(Data.waringContent[findItem][i]);
             lineWrap.addView(wrapContent);

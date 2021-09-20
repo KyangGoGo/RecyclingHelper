@@ -41,7 +41,6 @@ public class DetailActivity extends FragmentActivity {
         Bundle bundle = intent.getExtras();
         String title = bundle.getString("title");
         if(title != null){
-            Log.d("뜨냐/",title);
             upperBarSetting(title);
         }
 
