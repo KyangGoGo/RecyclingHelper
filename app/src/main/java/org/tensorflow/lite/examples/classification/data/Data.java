@@ -47,12 +47,12 @@ public class Data {
             "이물질을 제거하여 배출"
     };
     public static String[] additional_explanation = {
-            "ae1",
+            "종이류와 종이컵(우유팩)은 분리해서 버려야합니다.",
             "ae2",
-            "ae3",
-            "ae4",
+            "크리스탈 유리제품은 다른 성분을 포함하고있기 때문에 불연성 쓰레기로 버려야합니다.",
+            "CD는 재활용이 안되므로 흰색 종량제 봉투로 배출해주세요",
             "ae5",
-            "ae6",
+            "전지류는 니켈, 카드뮴, 수은 등 중금속이 포함되어 있어 토양오염이나 대기오염을 유발하며 먹이사슬을 통하여 사람에게 위해를 가할 수 있으므로 분리배출이 필요합니다. ",
             "ae7"
     };
     public static Integer[] images = {
@@ -75,12 +75,12 @@ public class Data {
     };
     public static Integer[][] lineImage = {
             {R.drawable.newspaper, R.drawable.note, R.drawable.box},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {R.drawable.can_img, R.drawable.extra_can},
+            {R.drawable.glass_img},
+            {R.drawable.plastic_bottle},
+            {R.drawable.plastic_bag_img},
+            {R.drawable.battery_img},
+            {R.drawable.styrofaom_img}
     };
     public static String[][] lineExplanation = {
             {
@@ -103,22 +103,22 @@ public class Data {
                             "기타 잡병(음료수병, 드링크류, 술병류 등)류는 클린하우스에 비치된 유리병 수거함에 배출"
             },
             {
-                "용기에 남아 있는 내용물을 깨끗이 비우고, 다른 재질로 된 부분(뚜껑과 부착상표 등)은 제거하여 압착하여 배출합니다.\n" +
-                        "생수, 음료수 등 투명 페트병은 재활용도움센터 전용수거함에 라벨 제거 후 별도배출"
+                    "용기에 남아 있는 내용물을 깨끗이 비우고, 다른 재질로 된 부분(뚜껑과 부착상표 등)은 제거하여 압착하여 배출합니다.\n" +
+                            "생수, 음료수 등 투명 페트병은 재활용도움센터 전용수거함에 라벨 제거 후 별도배출"
             },
             {
-                "● 투명 비닐봉투에 넣어 재활용품으로 배출\n" +
-                        "음식물 등 이물질이 묻은 경우 깨끗이 씻어서 배출\n" +
-                        "이물질 제거가 어려운 경우는 가연성 흰색 종량제 봉투에 배출"
+                    "투명 비닐봉투에 넣어 재활용품으로 배출\n" +
+                            "음식물 등 이물질이 묻은 경우 깨끗이 씻어서 배출\n" +
+                            "이물질 제거가 어려운 경우는 가연성 흰색 종량제 봉투에 배출"
             },
             {
-                "전지는 제품에서 분리하여 배출\n" +
-                        "주요 거점(읍·면·동·아파트 공동주택 등의 폐형광등·폐전지 일체함 또는 클린하우스·재활용도움센터 등)의 전용수거함에 배출"
+                    "전지는 제품에서 분리하여 배출\n" +
+                            "주요 거점(읍·면·동·아파트 공동주택 등의 폐형광등·폐전지 일체함 또는 클린하우스·재활용도움센터 등)의 전용수거함에 배출"
             },
             {
-                "스티로폼 상자의 내용물을 깨끗이 비우고 이물질 제거 후 배출\n" +
-                        "음식물 등 이물질이 묻은 스티로폼은 가연성 흰색 종량제 봉투로 배출\n" +
-                        "※ 단, 건축용 자재로 쓰인 내연재, 공작용 우드락 재질로 된 것은 가연성 쓰레기로 배출하여 주시기 바랍니다."
+                    "스티로폼 상자의 내용물을 깨끗이 비우고 이물질 제거 후 배출\n" +
+                            "음식물 등 이물질이 묻은 스티로폼은 가연성 흰색 종량제 봉투로 배출\n" +
+                            "※ 단, 건축용 자재로 쓰인 내연재, 공작용 우드락 재질로 된 것은 가연성 쓰레기로 배출하여 주시기 바랍니다."
             }
     };
     public static String[] warningText = {
@@ -133,7 +133,7 @@ public class Data {
     public static String[][] waringContent = {
             {"다른 재질과 혼합된 종이", "종이가 아닌것", "이물질 등으로 오염된 종이"},
             {"wc2", "wc2"},
-            {"wc3"},
+            {"유리가 아닌 것"},
             {"wc4", "wc4", "wc4"},
             {"wc5", "wc5"},
             {"wc6", "wc6", "wc6", "wc6"},
@@ -150,6 +150,14 @@ public class Data {
             },
             {
                     //유리류
+                    {R.drawable.mirror},
+                    {R.drawable.bulb},
+                    {R.drawable.broken_glass},
+                    {R.drawable.ceramic},
+                    {R.drawable.heat_resistance},
+                    {R.drawable.glass_lib},
+                    {R.drawable.crystal_glass},
+                    {R.drawable.pesticide}
             },
             {
                     //플라스틱류
@@ -166,7 +174,7 @@ public class Data {
     };
     public static String[][][] warningMessage = {
             {
-                    {"다른재질과혼합된종이", "금박지,은박지", "다른 재질이 혼합된 벽지"},
+                    {"영수증", "금박지,은박지", "다른 재질이 혼합된 벽지"},
                     {"부직포"},
                     {"기름 오염", "음식물 오염"},
             },
