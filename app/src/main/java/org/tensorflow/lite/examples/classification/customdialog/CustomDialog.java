@@ -41,6 +41,9 @@ public class CustomDialog extends Dialog {
 
         dialogText.setText(text);
 
+//        Data2 data2 = Data2.getInstance(text);
+//        Log.d("뜨냐", data2.explanation());
+
         int getItemLocation = Data.findItem(text);
 
         if(getItemLocation != -1){

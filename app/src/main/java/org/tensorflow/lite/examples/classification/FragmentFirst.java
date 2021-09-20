@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,12 +22,18 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import org.tensorflow.lite.examples.classification.data.Data;
+import org.w3c.dom.Text;
 
 public class FragmentFirst extends Fragment {
 
     private ViewGroup rootView;
     private LinearLayout productLine;
-    private int size = 350;
+    private int size = 400; //default 값
+    private String title;
+
+    public FragmentFirst(String title){
+        this.title = title;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,29 +44,59 @@ public class FragmentFirst extends Fragment {
         //최고 layout
         productLine = rootView.findViewById(R.id.product_line);
 
-        int len = Data.paperProduct.length;
+        //화면 비율에 맞춰 size 크기 조정
+        getScreenSize();
 
-        for(int i=0; i<len; i++){
-            addLine(Data.paperProduct[i], Data.paperImage[i], Data.paperExplanation[i]);
+        int findItem = Data.findItem(title);
+        if (findItem != -1) {
+            int len = Data.lineProduct[findItem].length;
+            for(int i=0; i<len; i++){
+                addLine(Data.lineProduct[findItem][i], Data.lineImage[findItem][i], Data.lineExplanation[findItem][i]);
+            }
+        }else{
+            //아이템을 찾지 못했을 경우
         }
 
         return rootView;
     }
 
+    private void getScreenSize(){
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point screenSize = new Point();
+        display.getSize(screenSize);
+        int mul = screenSize.x * screenSize.y;
+        size = (int)(mul/5760);
+    }
+
     private void addLine(String lineName, Integer lineImage, String lineExplanation){
-
-//        ViewGroup.LayoutParams productNameParam =
-//                new ViewGroup.LayoutParams(
-//                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        ViewGroup.LayoutParams productExplanationParam =
+        LinearLayout.LayoutParams productWrapParam =
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ViewGroup.LayoutParams productExplanationAndImageParam =
                 new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams productExplanationParam =
+                new LinearLayout.LayoutParams(
                         size, size);
+        LinearLayout.LayoutParams sortParam =
+                new LinearLayout.LayoutParams(0,0, 1.0f);
 
+        //margin 셋팅
+        productWrapParam.setMargins(0,10,0,20);
+        productExplanationParam.setMargins(0,0,0,10);
+
+        //가로세로 정렬 및 param 셋팅
         LinearLayout productWrap = new LinearLayout(getContext());
         productWrap.setOrientation(LinearLayout.VERTICAL);
+        productWrap.setLayoutParams(productWrapParam);
 
         LinearLayout productExplanationAndImage = new LinearLayout(getContext());
         productExplanationAndImage.setOrientation(LinearLayout.HORIZONTAL);
+        productExplanationAndImage.setLayoutParams(productExplanationAndImageParam);
+
+        //설명과 이미지 사이 공백을 위한 것
+        LinearLayout sortLayout = new LinearLayout(getContext());
+        sortLayout.setLayoutParams(sortParam);
 
         //실제 값 셋팅
         TextView productName = new TextView(getContext());
@@ -82,6 +119,7 @@ public class FragmentFirst extends Fragment {
         //레이아웃에 추가
         productWrap.addView(productName);
         productExplanationAndImage.addView(productExplanation);
+        productExplanationAndImage.addView(sortLayout);
         productExplanationAndImage.addView(productImage);
         productWrap.addView(productExplanationAndImage);
 

@@ -19,6 +19,12 @@ public class FragmentThird extends Fragment {
     private FragmentThirdAdapter mainAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+    private String title;
+
+    public FragmentThird(String title){
+        this.title = title;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

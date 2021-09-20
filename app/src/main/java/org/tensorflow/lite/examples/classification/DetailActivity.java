@@ -2,6 +2,7 @@ package org.tensorflow.lite.examples.classification;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -37,12 +40,14 @@ public class DetailActivity extends FragmentActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String title = bundle.getString("title");
-        if(title != null){ upperBarSetting(title); }
+        if(title != null){
+            upperBarSetting(title);
+        }
 
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
         //Adapter
-        pagerAdapter = new MyAdapter(this, Data.viewPage);
+        pagerAdapter = new MyAdapter(this, Data.viewPage, title);
         mPager.setAdapter(pagerAdapter);
         //Indicator
         mIndicator = findViewById(R.id.indicator);
@@ -97,7 +102,7 @@ public class DetailActivity extends FragmentActivity {
         displayDay = findViewById(R.id.display_day);
         if (isExistItem!=-1){ // 해당 아이템이 있을 경우
             displayImage.setImageResource(Data.images[isExistItem]);
-            displayTitle.setText(text);
+            displayTitle.setText(Data.changeWorld(text));
             displayDay.setText(Data.discharge_day[isExistItem]);
         }else{
             displayImage.setImageResource(R.drawable.recycle);
