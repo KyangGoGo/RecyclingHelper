@@ -38,11 +38,9 @@ public class FragmentThirdAdapter extends RecyclerView.Adapter<FragmentThirdAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String curName=holder.fnq_questions.getText().toString();
                 if(visibleText!=null)visibleText.setVisibility(View.GONE);
                 visibleText=holder.fnq_answer;
                 holder.fnq_answer.setVisibility(View.VISIBLE);
-                Toast.makeText(v.getContext(),curName,Toast.LENGTH_LONG).show();
             }
         });
 
