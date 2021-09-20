@@ -1,5 +1,9 @@
 package org.tensorflow.lite.examples.classification.data;
 
+import android.app.Activity;
+import android.graphics.Point;
+import android.view.Display;
+
 import org.tensorflow.lite.examples.classification.R;
 
 public class Data {
@@ -225,5 +229,13 @@ public class Data {
                 break;
         }
         return word;
+    }
+
+    public static int getScreenSize(Activity activity, int divisor){
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point screenSize = new Point();
+        display.getSize(screenSize);
+        int mul = screenSize.x * screenSize.y;
+        return (int)(mul/ divisor);
     }
 }
