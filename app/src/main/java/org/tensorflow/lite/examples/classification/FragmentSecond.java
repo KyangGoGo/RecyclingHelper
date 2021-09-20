@@ -51,8 +51,6 @@ public class FragmentSecond extends Fragment {
     }
 
     private void addWarningLine(Integer findItem) {
-
-
         for (int i = 0; i < Data.warningImage[findItem].length; i++) {
             LinearLayout lineWrap = new LinearLayout(getContext());
             lineWrap.setOrientation(LinearLayout.VERTICAL);

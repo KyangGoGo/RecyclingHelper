@@ -103,7 +103,7 @@ public class DetailActivity extends FragmentActivity {
         displayDay = findViewById(R.id.display_day);
         if (isExistItem!=-1){ // 해당 아이템이 있을 경우
             displayImage.setImageResource(Data.images[isExistItem]);
-            displayTitle.setText(text);
+            displayTitle.setText(Data.changeWorld(text));
             displayDay.setText(Data.discharge_day[isExistItem]);
         }else{
             displayImage.setImageResource(R.drawable.recycle);

@@ -173,4 +173,29 @@ public class Data {
         }
         return -1;
     }
+
+    public static String changeWorld(String title){
+        String word = "";
+        switch (title){
+            case "paper":
+                word = "종이";
+                break;
+            case "can":
+                word = "캔";
+                break;
+            case "glass":
+                word = "유리";
+                break;
+            case "plastic_bag":
+                word = "비닐";
+                break;
+            case "battery":
+                word = "건전지";
+                break;
+            case "styrofoam":
+                word = "스티로폼";
+                break;
+        }
+        return word;
+    }
 }
