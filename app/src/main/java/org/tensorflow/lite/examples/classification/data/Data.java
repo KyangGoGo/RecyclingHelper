@@ -60,20 +60,41 @@ public class Data {
             R.drawable.battery,
             R.drawable.styrofoam
     };
-    public static String[] paperProduct = {
-        "신문지",
-        "책자, 노트, 전단지, 쇼핑백",
-        "상자류(종이박스, 기타 골판지)"
+    public static String[][] lineProduct = {
+        { "신문지", "책자, 노트, 전단지, 쇼핑백", "상자류(종이박스, 기타 골판지)"},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
     };
-    public static Integer[] paperImage = {
-        R.drawable.newspaper,
-        R.drawable.note,
-        R.drawable.box
+    public static Integer[][] lineImage = {
+            {R.drawable.newspaper, R.drawable.note, R.drawable.box},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
     };
-    public static String[] paperExplanation = {
-            "뉴스 설명",
-            "책자, 노트, 전단지, 쇼핑백 설명",
-            "상자류 설명"
+    public static String[][] lineExplanation = {
+            {"뉴스 설명", "책자, 노트, 전단지, 쇼핑백 설명", "상자류 설명"},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+    };
+    public static String[][] productLine = {
+            {"신문지", "책자, 노트, 전단지, 쇼핑백", "상자류"},
+            {"c1","c2","c3"},
+            {"g1", "g2"},
+            {"p1"},
+            {"pb1"},
+            {"b1"},
+            {"s1", "s2", "s3", "s4"}
     };
     public static String[] warningText = {
             "흰색 종량제 봉투에 버려주세요",
@@ -115,7 +136,7 @@ public class Data {
               //폐전지
             },
             {
-                //폐스티로폼폼
+              //폐스티로폼폼
            }
     };
     public static String[][][] warningMessage = {

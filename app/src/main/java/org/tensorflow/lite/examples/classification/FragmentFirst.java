@@ -44,15 +44,14 @@ public class FragmentFirst extends Fragment {
         //최고 layout
         productLine = rootView.findViewById(R.id.product_line);
 
-        Log.d("뜨냐?", "전");
-        Log.d("뜨냐", title);
-        Log.d("뜨냐?", "후");
-
-
-        int len = Data.paperProduct.length;
-
-        for(int i=0; i<len; i++){
-            addLine(Data.paperProduct[i], Data.paperImage[i], Data.paperExplanation[i]);
+        int findItem = Data.findItem(title);
+        if (findItem != -1) {
+            int len = Data.lineProduct[findItem].length;
+            for(int i=0; i<len; i++){
+                addLine(Data.lineProduct[findItem][i], Data.lineImage[findItem][i], Data.lineExplanation[findItem][i]);
+            }
+        }else{
+            //아이템을 찾지 못했을 경우
         }
 
         return rootView;

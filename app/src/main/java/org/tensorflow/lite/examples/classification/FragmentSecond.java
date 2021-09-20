@@ -43,7 +43,7 @@ public class FragmentSecond extends Fragment {
             warningText.setText(waring + Data.warningText[findItem]);
             addWarningLine(findItem);
         } else {
-            warningText.setText("에러");
+            warningText.setText("데이터 없음");
         }
 
 
