@@ -10,5 +10,5 @@ public class PlasticBag {
             "이물질이 묻은 경우 깨끗이 씻어서 배출"
     };
     public static final String additionalExplanation = "";
-    public static final Integer image = R.drawable.paper;
+    public static final Integer image = R.drawable.logo_paper;
 }

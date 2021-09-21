@@ -10,5 +10,5 @@ public class Plastic {
             "생수, 음료수 등 투명 페트병은 재활용도움센터 전용수거함에 라벨 제거 후 별도배출"
     };
     public static final String additionalExplanation = "CD는 재활용이 안되므로 흰색 종량제 봉투로 배출해주세요";
-    public static final Integer image = R.drawable.plastic;
+    public static final Integer image = R.drawable.logo_plastic;
 }

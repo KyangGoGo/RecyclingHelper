@@ -11,5 +11,5 @@ public class Glass {
             "겉 또는 속의 플라스틱 뚜겅은 불에 타는 쓰레기로 분류"
     };
     public static final String additionalExplanation = "";
-    public static final Integer image = R.drawable.glass;
+    public static final Integer image = R.drawable.logo_glass;
 }

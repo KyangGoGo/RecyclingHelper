@@ -10,5 +10,5 @@ public class Styrofoam {
             "음식물 등 이물질이 묻은 스티로폼은 흰색 종량제 봉투로 배출"
     };
     public static final String additionalExplanation = "";
-    public static final Integer image = R.drawable.styrofoam;
+    public static final Integer image = R.drawable.logo_styrofoam;
 }

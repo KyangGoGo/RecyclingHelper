@@ -10,5 +10,5 @@ public class Battery {
             "전지는 제품에서 분리하여 배출"
     };
     public static final String additionalExplanation = "";
-    public static final Integer image = R.drawable.battery;
+    public static final Integer image = R.drawable.logo_battery;
 }

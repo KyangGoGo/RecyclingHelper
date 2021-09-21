@@ -12,5 +12,5 @@ public class Paper {
             "우천시 배출하지 말고 다음 재활용품 배출요일에 배출"
     };
     public static final String additionalExplanation = "종이류와 종이컵(우유팩)은 분리해서 버려야합니다.";
-    public static final Integer image = R.drawable.paper;
+    public static final Integer image = R.drawable.logo_paper;
 }

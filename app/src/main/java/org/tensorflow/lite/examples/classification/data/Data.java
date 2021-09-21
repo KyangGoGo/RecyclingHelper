@@ -48,7 +48,7 @@ public class Data {
     };
     public static String[] additional_explanation = {
             "종이류와 종이컵(우유팩)은 분리해서 버려야합니다.",
-            "ae2",
+            "부탄가스 용기는 바닥에 구멍을 뚫어 가스를 빼서 배출해야합니다.",
             "크리스탈 유리제품은 다른 성분을 포함하고있기 때문에 불연성 쓰레기로 버려야합니다.",
             "CD는 재활용이 안되므로 흰색 종량제 봉투로 배출해주세요",
             "ae5",
@@ -56,13 +56,13 @@ public class Data {
             "ae7"
     };
     public static Integer[] images = {
-            R.drawable.paper,
-            R.drawable.can,
-            R.drawable.glass,
-            R.drawable.plastic,
-            R.drawable.plastic_bag,
-            R.drawable.battery,
-            R.drawable.styrofoam
+            R.drawable.logo_paper,
+            R.drawable.logo_can,
+            R.drawable.logo_glass,
+            R.drawable.logo_plastic,
+            R.drawable.logo_plastic_bag,
+            R.drawable.logo_battery,
+            R.drawable.logo_styrofoam
     };
     public static String[][] lineProduct = {
             {"신문지", "책자, 노트, 전단지, 쇼핑백", "상자류(종이박스, 기타 골판지)"},
@@ -74,13 +74,13 @@ public class Data {
             {"폐스티로폼"}
     };
     public static Integer[][] lineImage = {
-            {R.drawable.newspaper, R.drawable.note, R.drawable.box},
-            {R.drawable.can_img, R.drawable.extra_can},
-            {R.drawable.glass_img},
-            {R.drawable.plastic_bottle},
-            {R.drawable.plastic_bag_img},
-            {R.drawable.battery_img},
-            {R.drawable.styrofaom_img}
+            {R.drawable.detail_newspaper, R.drawable.detail_note, R.drawable.detail_box},
+            {R.drawable.detail_can, R.drawable.detail_extra_can},
+            {R.drawable.detail_glass},
+            {R.drawable.detail_plastic_bottle},
+            {R.drawable.detail_plastic_bag},
+            {R.drawable.detail_battery},
+            {R.drawable.detail_styrofaom}
     };
     public static String[][] lineExplanation = {
             {
@@ -124,52 +124,59 @@ public class Data {
     public static String[] warningText = {
             "흰색 종량제 봉투에 버려주세요",
             "w2",
-            "유리가 아니에요. 불연성 전용 PP마대로 배출해주세요",
-            "w4",
+            "불연성 전용 PP마대로 배출해주세요",
+            "흰색 종량제 봉투에 버려주세요",
             "w5",
             "w6",
             "w7",
     };
     public static String[][] waringContent = {
             {"다른 재질과 혼합된 종이", "종이가 아닌것", "이물질 등으로 오염된 종이"},
-            {"wc2", "wc2"},
+            {"유해물 포장통"},
             {"유리가 아닌 것"},
-            {"wc4", "wc4", "wc4"},
-            {"wc5", "wc5"},
+            {"비닐 붙은 플라스틱", "소형 플라스틱", "PVC원료 제품", "유색 플라스틱", "원료가 섞인 플라스틱(OTHER)"},
+            {"얼음팩", "홉합재질봉투"},
             {"wc6", "wc6", "wc6", "wc6"},
             {"wc7"}
     };
     public static Integer[][][] warningImage = {
             {
-                    {R.drawable.mixed_paper, R.drawable.gold_foil, R.drawable.wall_paper},
-                    {R.drawable.non_woven},
-                    {R.drawable.oily_paper, R.drawable.contaminated_paper},
+                    {R.drawable.warning_mixed_paper, R.drawable.warning_gold_foil, R.drawable.warning_wall_paper},
+                    {R.drawable.warning_non_woven},
+                    {R.drawable.warning_oily_paper, R.drawable.warning_contaminated_paper},
             },
             {
                     //캔류
+                    {R.drawable.warning_paint_bucket}
             },
             {
                     //유리류
-                    {R.drawable.mirror},
-                    {R.drawable.bulb},
-                    {R.drawable.broken_glass},
-                    {R.drawable.ceramic},
-                    {R.drawable.heat_resistance},
-                    {R.drawable.glass_lib},
-                    {R.drawable.crystal_glass},
-                    {R.drawable.pesticide}
+                    {R.drawable.warning_mirror},
+                    {R.drawable.warning_bulb},
+                    {R.drawable.warning_broken_glass},
+                    {R.drawable.warning_ceramic},
+                    {R.drawable.warning_heat_resistance},
+                    {R.drawable.warning_glass_lib},
+                    {R.drawable.warning_crystal_glass},
+                    {R.drawable.warning_pesticide}
             },
             {
                     //플라스틱류
+                    {R.drawable.warning_vinyl_plastic, R.drawable.warning_label_bottle},
+                    {R.drawable.warning_tooth_brush, R.drawable.warning_disposable_spoon},
+                    {R.drawable.warning_tube, R.drawable.warning_pvc_mat},
+                    {R.drawable.warning_color_bottle},
+                    {R.drawable.warning_disposable_cup}
             },
             {
                     //비닐류
+                    {R.drawable.warning_ice_pack}
             },
             {
                     //폐전지
             },
             {
-                    //폐스티로폼폼
+                    //폐스티로폼
             }
     };
     public static String[][][] warningMessage = {
@@ -180,6 +187,7 @@ public class Data {
             },
             {
                     //캔류
+                    {"페인트통"}
             },
             {
                     //유리류
@@ -194,9 +202,15 @@ public class Data {
             },
             {
                     //플라스틱류
+                    {"배달용 진공포장 용기", "상표가 붙은 페트병"},
+                    {"칫솔", "일회용 숫가락"},
+                    {"튜브", "유아용 매트"},
+                    {"유색 페트병"},
+                    {"일회용 컵"}
             },
             {
                     //비닐류
+                    {"얼음팩"}
             },
             {
                     //폐전지

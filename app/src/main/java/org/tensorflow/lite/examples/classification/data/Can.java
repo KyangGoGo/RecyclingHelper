@@ -11,5 +11,5 @@ public class Can {
             "부탄가스(살충제) 용기는 구멍을 뚫어 남은 가스 제거"
     };
     public static final String additionalExplanation = "";
-    public static final Integer image = R.drawable.can;
+    public static final Integer image = R.drawable.logo_can;
 }
