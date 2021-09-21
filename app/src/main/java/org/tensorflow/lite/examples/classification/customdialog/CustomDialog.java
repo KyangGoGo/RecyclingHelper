@@ -3,6 +3,7 @@ package org.tensorflow.lite.examples.classification.customdialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,12 +15,10 @@ import org.tensorflow.lite.examples.classification.data.Data;
 public class CustomDialog extends Dialog {
 
     private String text;
-
     private ImageView item_image;
     private TextView dialogText,
         item_classification, item_discharge_day,
         item_explanation;
-
 
     public CustomDialog(@NonNull Context context, String text){
         super(context);
@@ -38,11 +37,7 @@ public class CustomDialog extends Dialog {
         item_discharge_day = findViewById(R.id.select_discharge_day);
         item_explanation = findViewById(R.id.select_explanation);
 
-
         dialogText.setText(text);
-
-//        Data2 data2 = Data2.getInstance(text);
-//        Log.d("뜨냐", data2.explanation());
 
         int getItemLocation = Data.findItem(text);
 
