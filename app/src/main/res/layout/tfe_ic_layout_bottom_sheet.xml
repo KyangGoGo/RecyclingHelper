@@ -308,19 +308,19 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:background="@android:color/darker_gray" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:text="Threads"
             android:textColor="@android:color/black" />
 
@@ -360,7 +360,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:background="@android:color/darker_gray" />
 
     <RelativeLayout
@@ -370,7 +370,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:text="@string/tfe_ic_device"
             android:textColor="@android:color/black" />
 
@@ -378,7 +378,7 @@
             android:id="@+id/device_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:layout_alignParentRight="true"
             android:entries="@array/tfe_ic_devices"
             android:prompt="@string/tfe_ic_device" />
@@ -387,13 +387,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
         <TextView
+            android:text="꿀팁!"
+            android:textSize="15sp"
             android:textColor="#ffffff"
-            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+        <TextView
             android:id="@+id/additional_explanation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:padding="7dp"
+            android:textColor="#ffffff"
+            android:gravity="center_horizontal"
             android:background="@drawable/additional_explanation"/>
     </LinearLayout>
 </LinearLayout>
