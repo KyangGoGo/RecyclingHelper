@@ -21,10 +21,11 @@
             android:padding="6dp"
             android:id="@+id/fnq_answer"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="aaaaaa"
             android:textSize="15dp"
             android:visibility="gone"
+            android:minHeight="40dp"
             android:background="@drawable/edge"
             />
     </LinearLayout>

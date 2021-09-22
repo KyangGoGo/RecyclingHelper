@@ -1,7 +1,10 @@
 package org.tensorflow.lite.examples.classification;
 
-import android.content.Context;
+
+import android.content.res.AssetFileDescriptor;
 import android.os.Bundle;
+import android.util.JsonReader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +13,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.tensorflow.lite.examples.classification.data.FragementThirdData;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class FragmentThird extends Fragment {
@@ -37,18 +51,66 @@ public class FragmentThird extends Fragment {
 
         arrayList=new ArrayList<>();
 
+        StringBuffer sb=new StringBuffer();
+        try {
+            InputStream is = inflater.getContext().getAssets().open("questions.json");
+            InputStreamReader isr=new InputStreamReader(is);
+            BufferedReader br=new BufferedReader(isr);
+            String line=br.readLine();
+            while(line!=null){
+                sb.append(line);
+                line=br.readLine();
+            }
+            JSONObject json=new JSONObject(sb.toString());
 
-        String questionsList[]={"휴지는 재활용이 되나요?","코딩된 종이(광고지,전단지,사진등)는 어떻게 배출 하나요?"
-                ,"스프링 등 (철,플라스틱)이 부착된 책자류는 어떻게 배출하나요?","카드 명세서,각종 고지서는 재활용 종이로 배출 가능한가요?"};
-        String answerList[]={"휴지는 재활용이 되나요?","코딩된 종이(광고지,전단지,사진등)는 어떻게 배출 하나요?"
-                ,"스프링 등 (철,플라스틱)이 부착된 책자류는 어떻게 배출하나요?","카드 명세서,각종 고지서는 재활용 종이로 배출 가능한가요?"};
-        for(int i=0;i<questionsList.length;i++){
-            FragementThirdData mainData=new FragementThirdData(questionsList[i],answerList[i]);
-            arrayList.add(mainData);
+            JSONArray jsonArray=json.getJSONArray(getQuestions(title));
+            for(int i=0;i<jsonArray.length();i++){
+                JSONObject jsonObject=(JSONObject) jsonArray.get(i);
+                FragementThirdData mainData=new FragementThirdData(jsonObject.get("question").toString(),jsonObject.get("answer").toString());
+                arrayList.add(mainData);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
         }
+
+
         mainAdapter=new FragmentThirdAdapter(arrayList);
         recyclerView.setAdapter(mainAdapter);
 
         return rootView;
+    }
+
+    public String getQuestions(String title){
+        String tem=null;
+        switch (title){
+            case "고철":
+                tem="can";
+                break;
+            case "비닐":
+                tem="plastic_bag";
+                break;
+            case "스티로폼":
+                tem="styrofoam";
+                break;
+            case "유리병":
+                tem="glass";
+                break;
+            case "종이":
+                tem="paper";
+                break;
+            case "캔류":
+                tem="can";
+                break;
+            case "폐전지":
+                tem="battery";
+                break;
+            case "플라스틱류":
+                tem="plastic";
+                break;
+            case "형광등":
+                tem="can";
+                break;
+        }
+        return tem;
     }
 }

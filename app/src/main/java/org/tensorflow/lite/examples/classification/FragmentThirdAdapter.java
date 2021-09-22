@@ -31,16 +31,23 @@ public class FragmentThirdAdapter extends RecyclerView.Adapter<FragmentThirdAdap
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        holder.fnq_questions.setText(arrayList.get(position).getQuestions());
 
         holder.itemView.setTag(position);
-        holder.fnq_answer.setText(arrayList.get(position).getQuestions());
+        holder.fnq_questions.setText(arrayList.get(position).getQuestions());
+        holder.fnq_answer.setText(arrayList.get(position).getAnswer());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(visibleText!=null)visibleText.setVisibility(View.GONE);
-                visibleText=holder.fnq_answer;
+                if(visibleText!=null){
+                    if(visibleText!=holder.fnq_answer)visibleText.setVisibility(View.GONE);
+                    else if(visibleText.getVisibility()==View.VISIBLE){
+                        visibleText.setVisibility(View.GONE);
+                        return;
+                    }
+                }
                 holder.fnq_answer.setVisibility(View.VISIBLE);
+                visibleText=holder.fnq_answer;
             }
         });
 
