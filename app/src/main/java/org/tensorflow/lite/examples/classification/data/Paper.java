@@ -2,7 +2,7 @@ package org.tensorflow.lite.examples.classification.data;
 
 import org.tensorflow.lite.examples.classification.R;
 
-public class Paper {
+public class Paper extends Data2 {
     public static final String classification = "종이류";
     public static final String discharge_day = "화, 목, 토";
     public static final String[] explanation = {
@@ -44,4 +44,8 @@ public class Paper {
             {"부직포"},
             {"기름 오염", "음식물 오염"},
     };
+
+    public Paper() {
+        super(classification, discharge_day, explanation, additionalExplanation, image, lineProduct, lineImage, lineExplanation, warningText, warningContent, warningImage, warningMessage);
+    }
 }

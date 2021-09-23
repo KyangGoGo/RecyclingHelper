@@ -2,7 +2,7 @@ package org.tensorflow.lite.examples.classification.data;
 
 import org.tensorflow.lite.examples.classification.R;
 
-public class Plastic {
+public class Plastic extends Data2 {
     public static final String classification = "플라스틱류";
     public static final String discharge_day = "월, 수, 금, 일";
     public static final String[] explanation = {
@@ -45,4 +45,8 @@ public class Plastic {
             {"유색 페트병"},
             {"일회용 컵"}
     };
+
+    public Plastic() {
+        super(classification, discharge_day, explanation, additionalExplanation, image, lineProduct, lineImage, lineExplanation, warningText, warningContent, warningImage, warningMessage);
+    }
 }

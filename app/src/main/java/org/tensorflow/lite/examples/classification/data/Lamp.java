@@ -2,7 +2,7 @@ package org.tensorflow.lite.examples.classification.data;
 
 import org.tensorflow.lite.examples.classification.R;
 
-public class Lamp extends Data {
+public class Lamp extends Data2 {
     public static final String classification = "형광등";
     public static final String discharge_day = "매일";
     public static final String[] explanation = {
@@ -34,4 +34,8 @@ public class Lamp extends Data {
             {"백열전구", "LED전구"},
             {"깨진 형광등"}
     };
+
+    public Lamp() {
+        super(classification, discharge_day, explanation, additionalExplanation, image, lineProduct, lineImage, lineExplanation, warningText, warningContent, warningImage, warningMessage);
+    }
 }

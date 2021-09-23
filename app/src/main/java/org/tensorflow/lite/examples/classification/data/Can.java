@@ -2,7 +2,7 @@ package org.tensorflow.lite.examples.classification.data;
 
 import org.tensorflow.lite.examples.classification.R;
 
-public class Can {
+public class Can extends Data2 {
     public static final String classification = "캔류";
     public static final String discharge_day = "매일";
     public static final String[] explanation = {
@@ -30,8 +30,14 @@ public class Can {
     public static final String[] warningContent = {
             "유해물 포장통"
     };
-    public static final Integer[] warningImage = {R.drawable.warning_paint_bucket};
+    public static final Integer[][] warningImage = {
+            {R.drawable.warning_paint_bucket}
+    };
     public static final String[][] warningMessage = {
             {"폐인트통"}
     };
+
+    public Can() {
+        super(classification, discharge_day, explanation, additionalExplanation, image, lineProduct, lineImage, lineExplanation, warningText, warningContent, warningImage, warningMessage);
+    }
 }
