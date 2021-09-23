@@ -46,10 +46,10 @@
                     android:gravity="center"
                     android:background="@drawable/table_border"/>
                 <TextView
-                    android:text="qwrqwfasgsdg"
                     android:id="@+id/select_classification"
                     android:layout_width="190dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center" />
             </TableRow>
             <TableRow
@@ -66,13 +66,14 @@
                     android:background="@drawable/table_border"/>
                 <TextView
                     android:id="@+id/select_discharge_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center"/>
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/table_border">
                 <TextView
                     android:text="주의 사항 및 배출 방법"
@@ -86,6 +87,7 @@
                     android:id="@+id/select_explanation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center"/>
             </TableRow>
         </TableLayout>
