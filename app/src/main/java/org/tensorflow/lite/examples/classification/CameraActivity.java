@@ -40,6 +40,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Trace;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.util.Size;
 import android.view.Display;
 import android.view.Surface;
@@ -560,8 +562,8 @@ public abstract class CameraActivity extends AppCompatActivity
         if (recognition.getTitle() != null) {
           recognitionTextView.setText(recognition.getTitle());
           data = Data.getInstance(recognition.getTitle());
-          if(data != null) additionalExplanation.setText(data.getAdditionalExplanation());
-          else additionalExplanation.setText("결과x");
+          if(data != null){ additionalExplanation.setText(data.getAdditionalExplanation()); }
+          else{ additionalExplanation.setText("결과x"); }
         }
         if (recognition.getConfidence() != null){
 //          recognitionValueTextView.setText(String.format("%.2f", (100 * recognition.getConfidence())) + "%");

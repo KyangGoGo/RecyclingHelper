@@ -400,7 +400,8 @@
         <TextView
             android:id="@+id/additional_explanation"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
+            android:minHeight="35dp"
             android:padding="7dp"
             android:textColor="#ffffff"
             android:gravity="center_horizontal"
