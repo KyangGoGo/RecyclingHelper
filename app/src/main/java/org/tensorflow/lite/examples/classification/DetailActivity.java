@@ -17,6 +17,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import org.tensorflow.lite.examples.classification.data.Data;
+import org.tensorflow.lite.examples.classification.data.Data2;
 import org.tensorflow.lite.examples.classification.viewpager2.MyAdapter;
 
 import me.relex.circleindicator.CircleIndicator3;
@@ -96,18 +97,31 @@ public class DetailActivity extends FragmentActivity {
         });
     }
     private void upperBarSetting(String text){
-        int isExistItem = Data.findItem(text);
+        //int isExistItem = Data.findItem(text);
+        Data2 data2 = Data2.getInstance(text);
+
         displayImage = findViewById(R.id.display_image);
         displayTitle = findViewById(R.id.display_title);
         displayDay = findViewById(R.id.display_day);
-        if (isExistItem!=-1){ // 해당 아이템이 있을 경우
-            displayImage.setImageResource(Data.images[isExistItem]);
-            displayTitle.setText(Data.changeWorld(text));
-            displayDay.setText(Data.discharge_day[isExistItem]);
+
+        if(data2 != null){
+            displayImage.setImageResource(data2.getImage());
+            displayTitle.setText(data2.getClassification());
+            displayDay.setText(data2.getDischarge_day());
         }else{
             displayImage.setImageResource(R.drawable.recycle);
             displayTitle.setText("값 없음");
             displayDay.setText("값 없음");
         }
+
+//        if (isExistItem!=-1){ // 해당 아이템이 있을 경우
+//            displayImage.setImageResource(Data.images[isExistItem]);
+//            displayTitle.setText(Data.changeWorld(text));
+//            displayDay.setText(Data.discharge_day[isExistItem]);
+//        }else{
+//            displayImage.setImageResource(R.drawable.recycle);
+//            displayTitle.setText("값 없음");
+//            displayDay.setText("값 없음");
+//        }
     }
 }

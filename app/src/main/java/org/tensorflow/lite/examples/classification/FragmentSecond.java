@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import org.tensorflow.lite.examples.classification.data.Data;
+import org.tensorflow.lite.examples.classification.data.Data2;
 
 public class FragmentSecond extends Fragment {
 
@@ -47,21 +48,29 @@ public class FragmentSecond extends Fragment {
 
         size = Data.getScreenSize(getActivity(), divisor);
 
-        int findItem = Data.findItem(title);
+        Data2 data2 = Data2.getInstance(title);
+        if(data2 != null){
+            warningText.setText(waring + data2.getWarningText());
+            addWarningLine(data2);
+        }else {
 
-        if (findItem != -1) {
-            warningText.setText(waring + Data.warningText[findItem]);
-            addWarningLine(findItem);
-        } else {
-            warningText.setText("데이터 없음");
         }
+
+//        int findItem = Data.findItem(title);
+//
+//        if (findItem != -1) {
+//            warningText.setText(waring + Data.warningText[findItem]);
+//            addWarningLine(findItem);
+//        } else {
+//            warningText.setText("데이터 없음");
+//        }
 
 
         return rootView;
     }
 
 
-    private void addWarningLine(Integer findItem) {
+    private void addWarningLine(Data2 data2) {
         LinearLayout.LayoutParams warnItemParam =
                 new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -75,7 +84,7 @@ public class FragmentSecond extends Fragment {
                 new LinearLayout.LayoutParams(0,0, 1.0f);
 
 
-        for (int i = 0; i < Data.warningImage[findItem].length; i++) {
+        for (int i = 0; i < data2.getWarningImage().length; i++) {
             //경고창 내부 layout 설정
             LinearLayout lineWrap = new LinearLayout(getContext());
             lineWrap.setOrientation(LinearLayout.VERTICAL);
@@ -87,7 +96,7 @@ public class FragmentSecond extends Fragment {
             Typeface bold = Typeface.defaultFromStyle(Typeface.BOLD);
             wrapContent.setTypeface(bold);
             wrapContent.setTextSize(15);
-            wrapContent.setText((i+1)+". "+Data.waringContent[findItem][i]);
+            wrapContent.setText((i+1)+". "+ data2.getWarningContent()[i]);
             lineWrap.addView(wrapContent);
 
             GridLayout warnItem = new GridLayout(getContext());
@@ -96,19 +105,19 @@ public class FragmentSecond extends Fragment {
             warnItem.setLayoutParams(warnItemParam);
 
             //경고에 포함되는 이미지 및 텍스트 셋팅
-            for (int j = 0; j < Data.warningImage[findItem][i].length; j++) {
+            for (int j = 0; j < data2.getWarningImage()[i].length; j++) {
                 //박스 생성
                 LinearLayout addItem = new LinearLayout(getContext());
                 addItem.setOrientation(LinearLayout.VERTICAL);
                 addItem.setLayoutParams(addItemParam);
                 //이미지 생성
                 ImageView warnImage = new ImageView(getContext());
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), Data.warningImage[findItem][i][j]);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), data2.getWarningImage()[i][j]);
                 bitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
                 warnImage.setImageBitmap(bitmap);
                 //텍스트 생성
                 TextView warnText = new TextView(getContext());
-                warnText.setText(Data.warningMessage[findItem][i][j]);
+                warnText.setText(data2.getWarningMessage()[i][j]);
                 //박스에 이미지 및 텍스트 추가
                 addItem.addView(warnImage);
                 addItem.addView(warnText);

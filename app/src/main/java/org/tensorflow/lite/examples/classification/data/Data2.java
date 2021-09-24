@@ -14,7 +14,18 @@ public class Data2 {
     private final Integer[][] warningImage;
     private final String[][] warningMessage;
 
-    public Data2(String classification, String discharge_day, String[] explanation, String additionalExplanation, Integer image, String[] lineProduct, Integer[] lineImage, String[] lineExplanation, String warningText, String[] warningContent, Integer[][] warningImage, String[][] warningMessage) {
+    public Data2(String classification,
+                 String discharge_day,
+                 String[] explanation,
+                 String additionalExplanation,
+                 Integer image,
+                 String[] lineProduct,
+                 Integer[] lineImage,
+                 String[] lineExplanation,
+                 String warningText,
+                 String[] warningContent,
+                 Integer[][] warningImage,
+                 String[][] warningMessage) {
         this.classification = classification;
         this.discharge_day = discharge_day;
         this.explanation = explanation;
@@ -29,8 +40,7 @@ public class Data2 {
         this.warningMessage = warningMessage;
     }
 
-    public Data2 getInstance(String text){
-
+    public static Data2 getInstance(String text){
         switch (text){
             case "고철":
                 return new Can();

@@ -22,6 +22,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import org.tensorflow.lite.examples.classification.data.Data;
+import org.tensorflow.lite.examples.classification.data.Data2;
 import org.w3c.dom.Text;
 
 public class FragmentFirst extends Fragment {
@@ -48,15 +49,26 @@ public class FragmentFirst extends Fragment {
         //화면 비율에 맞춰 size 크기 조정
         size = Data.getScreenSize(getActivity(), divisor);
 
-        int findItem = Data.findItem(title);
-        if (findItem != -1) {
-            int len = Data.lineProduct[findItem].length;
-            for(int i=0; i<len; i++){
-                addLine(Data.lineProduct[findItem][i], Data.lineImage[findItem][i], Data.lineExplanation[findItem][i]);
+        Data2 data2 = Data2.getInstance(title);
+
+        if(data2 != null){
+            int len = data2.getLineProduct().length;
+            for(int i=0; i<len; i++) {
+                addLine(data2.getLineProduct()[i],
+                        data2.getLineImage()[i],
+                        data2.getLineExplanation()[i]);
             }
-        }else{
-            //아이템을 찾지 못했을 경우
         }
+
+//        int findItem = Data.findItem(title);
+//        if (findItem != -1) {
+//            int len = Data.lineProduct[findItem].length;
+//            for(int i=0; i<len; i++){
+//                addLine(Data.lineProduct[findItem][i], Data.lineImage[findItem][i], Data.lineExplanation[findItem][i]);
+//            }
+//        }else{
+//            //아이템을 찾지 못했을 경우
+//        }
 
         return rootView;
     }

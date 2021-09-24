@@ -35,7 +35,7 @@ public class FragmentThird extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private String title;
 
-    public FragmentThird(String title){
+    public FragmentThird(String title) {
         this.title = title;
     }
 
@@ -45,28 +45,28 @@ public class FragmentThird extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_3p, container, false);
 
-        recyclerView=(RecyclerView) rootView.findViewById(R.id.rd);
-        linearLayoutManager=new LinearLayoutManager(getContext());
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.rd);
+        linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        arrayList=new ArrayList<>();
+        arrayList = new ArrayList<>();
 
-        StringBuffer sb=new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         try {
             InputStream is = inflater.getContext().getAssets().open("questions.json");
-            InputStreamReader isr=new InputStreamReader(is);
-            BufferedReader br=new BufferedReader(isr);
-            String line=br.readLine();
-            while(line!=null){
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String line = br.readLine();
+            while (line != null) {
                 sb.append(line);
-                line=br.readLine();
+                line = br.readLine();
             }
-            JSONObject json=new JSONObject(sb.toString());
+            JSONObject json = new JSONObject(sb.toString());
 
-            JSONArray jsonArray=json.getJSONArray(getQuestions(title));
-            for(int i=0;i<jsonArray.length();i++){
-                JSONObject jsonObject=(JSONObject) jsonArray.get(i);
-                FragementThirdData mainData=new FragementThirdData(jsonObject.get("question").toString(),jsonObject.get("answer").toString());
+            JSONArray jsonArray = json.getJSONArray(getQuestions(title));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                FragementThirdData mainData = new FragementThirdData(jsonObject.get("question").toString(), jsonObject.get("answer").toString());
                 arrayList.add(mainData);
             }
         } catch (IOException | JSONException e) {
@@ -74,41 +74,41 @@ public class FragmentThird extends Fragment {
         }
 
 
-        mainAdapter=new FragmentThirdAdapter(arrayList);
+        mainAdapter = new FragmentThirdAdapter(arrayList);
         recyclerView.setAdapter(mainAdapter);
 
         return rootView;
     }
 
-    public String getQuestions(String title){
-        String tem=null;
-        switch (title){
+    public String getQuestions(String title) {
+        String tem = null;
+        switch (title) {
             case "고철":
-                tem="can";
+                tem = "can";
                 break;
             case "비닐":
-                tem="plastic_bag";
+                tem = "plastic_bag";
                 break;
             case "스티로폼":
-                tem="styrofoam";
+                tem = "styrofoam";
                 break;
             case "유리병":
-                tem="glass";
+                tem = "glass";
                 break;
             case "종이":
-                tem="paper";
+                tem = "paper";
                 break;
             case "캔류":
-                tem="can";
+                tem = "can";
                 break;
             case "폐전지":
-                tem="battery";
+                tem = "battery";
                 break;
             case "플라스틱류":
-                tem="plastic";
+                tem = "plastic";
                 break;
             case "형광등":
-                tem="can";
+                tem = "can";
                 break;
         }
         return tem;

@@ -63,6 +63,7 @@ import java.util.List;
 
 import org.tensorflow.lite.examples.classification.customdialog.CustomDialog;
 import org.tensorflow.lite.examples.classification.data.Data;
+import org.tensorflow.lite.examples.classification.data.Data2;
 import org.tensorflow.lite.examples.classification.env.ImageUtils;
 import org.tensorflow.lite.examples.classification.env.Logger;
 import org.tensorflow.lite.examples.classification.tflite.Classifier.Device;
@@ -559,8 +560,11 @@ public abstract class CameraActivity extends AppCompatActivity
       if (recognition != null) {
         if (recognition.getTitle() != null) {
           recognitionTextView.setText(recognition.getTitle());
-          int getItem = Data.findItem(recognition.getTitle());
-          if( getItem != -1 ) additionalExplanation.setText(Data.additional_explanation[getItem]);
+//          int getItem = Data.findItem(recognition.getTitle());
+//          if( getItem != -1 ) additionalExplanation.setText(Data.additional_explanation[getItem]);
+//          else additionalExplanation.setText("결과x");
+          Data2 data2 = Data2.getInstance(recognition.getTitle());
+          if(data2 != null) additionalExplanation.setText(data2.getAdditionalExplanation());
           else additionalExplanation.setText("결과x");
         }
         if (recognition.getConfidence() != null){
