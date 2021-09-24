@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.tensorflow.lite.examples.classification.adapter.FnQFragmentAdapter;
 import org.tensorflow.lite.examples.classification.data.Data;
 import org.tensorflow.lite.examples.classification.data.FragementThirdData;
 
@@ -22,14 +23,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class FragmentThird extends Fragment {
+public class DetailFnQFragment extends Fragment {
     private ArrayList<FragementThirdData> arrayList;
-    private FragmentThirdAdapter mainAdapter;
+    private FnQFragmentAdapter mainAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private Data data;
 
-    public FragmentThird(Data data) {
+    public DetailFnQFragment(Data data) {
         this.data = data;
     }
 
@@ -37,7 +38,7 @@ public class FragmentThird extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment_3p, container, false);
+                R.layout.detail_fnq_fragment, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.rd);
         linearLayoutManager = new LinearLayoutManager(getContext());
@@ -66,7 +67,7 @@ public class FragmentThird extends Fragment {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-        mainAdapter = new FragmentThirdAdapter(arrayList);
+        mainAdapter = new FnQFragmentAdapter(arrayList);
         recyclerView.setAdapter(mainAdapter);
 
         return rootView;

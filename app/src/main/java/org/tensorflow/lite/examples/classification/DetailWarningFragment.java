@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import org.tensorflow.lite.examples.classification.data.Data;
 
-public class FragmentSecond extends Fragment {
+public class DetailWarningFragment extends Fragment {
 
     private Data data;
     private String waring = "주의!\n";
@@ -25,7 +25,7 @@ public class FragmentSecond extends Fragment {
     private int size = 300;
     int divisor = 5707; //제수
 
-    public FragmentSecond(Data data) {
+    public DetailWarningFragment(Data data) {
         this.data = data;
     }
 
@@ -33,7 +33,7 @@ public class FragmentSecond extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment_2p, container, false);
+                R.layout.detail_warning_fragment, container, false);
 
         warningText = rootView.findViewById(R.id.warning_text);
         warningBody = rootView.findViewById(R.id.warning_body);

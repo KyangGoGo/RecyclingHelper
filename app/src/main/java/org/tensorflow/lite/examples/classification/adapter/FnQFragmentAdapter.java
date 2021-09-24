@@ -1,30 +1,30 @@
-package org.tensorflow.lite.examples.classification;
+package org.tensorflow.lite.examples.classification.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.tensorflow.lite.examples.classification.R;
 import org.tensorflow.lite.examples.classification.data.FragementThirdData;
 
 import java.util.ArrayList;
 
-public class FragmentThirdAdapter extends RecyclerView.Adapter<FragmentThirdAdapter.CustomViewHolder> {
+public class FnQFragmentAdapter extends RecyclerView.Adapter<FnQFragmentAdapter.CustomViewHolder> {
     private ArrayList<FragementThirdData> arrayList;
     private TextView visibleText;
 
-    public FragmentThirdAdapter(ArrayList<FragementThirdData> arrayList) {
+    public FnQFragmentAdapter(ArrayList<FragementThirdData> arrayList) {
         this.arrayList = arrayList;
     }
 
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment3_item_list,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.detail_fnq_item_list,parent,false);
         CustomViewHolder holder=new CustomViewHolder(view);
         return holder;
     }

@@ -1,20 +1,20 @@
-package org.tensorflow.lite.examples.classification.viewpager2;
+package org.tensorflow.lite.examples.classification.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import org.tensorflow.lite.examples.classification.FragmentFirst;
-import org.tensorflow.lite.examples.classification.FragmentSecond;
-import org.tensorflow.lite.examples.classification.FragmentThird;
+import org.tensorflow.lite.examples.classification.DetailLineFragment;
+import org.tensorflow.lite.examples.classification.DetailWarningFragment;
+import org.tensorflow.lite.examples.classification.DetailFnQFragment;
 import org.tensorflow.lite.examples.classification.data.Data;
 
-public class MyAdapter extends FragmentStateAdapter {
+public class ViewPagerAdapter extends FragmentStateAdapter {
 
     public int count;
     private Data data;
 
-    public MyAdapter(FragmentActivity fa, int count, Data data) {
+    public ViewPagerAdapter(FragmentActivity fa, int count, Data data) {
         super(fa);
         this.count = count;
         this.data = data;
@@ -25,9 +25,9 @@ public class MyAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         int index = getRealPosition(position);
 
-        if(index==0) return new FragmentFirst(data);
-        else if (index==1) return new FragmentSecond(data);
-        else return new FragmentThird(data);
+        if(index==0) return new DetailLineFragment(data);
+        else if (index==1) return new DetailWarningFragment(data);
+        else return new DetailFnQFragment(data);
     }
 
     @Override

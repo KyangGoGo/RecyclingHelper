@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import org.tensorflow.lite.examples.classification.data.Data;
 
-public class FragmentFirst extends Fragment {
+public class DetailLineFragment extends Fragment {
 
     private ViewGroup rootView;
     private LinearLayout productLine;
@@ -23,7 +23,7 @@ public class FragmentFirst extends Fragment {
     private Data data;
     private int divisor = 5760;
 
-    public FragmentFirst(Data data){
+    public DetailLineFragment(Data data){
         this.data = data;
     }
 
@@ -31,7 +31,7 @@ public class FragmentFirst extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment_1p, container, false);
+                R.layout.detail_line_fragment, container, false);
 
         //최고 layout
         productLine = rootView.findViewById(R.id.product_line);

@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 import org.tensorflow.lite.examples.classification.data.Data;
-import org.tensorflow.lite.examples.classification.viewpager2.MyAdapter;
+import org.tensorflow.lite.examples.classification.adapter.ViewPagerAdapter;
 
 import me.relex.circleindicator.CircleIndicator3;
 
@@ -44,7 +44,7 @@ public class DetailActivity extends FragmentActivity {
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
         //Adapter
-        pagerAdapter = new MyAdapter(this, Data.viewPage, data);
+        pagerAdapter = new ViewPagerAdapter(this, Data.viewPage, data);
         mPager.setAdapter(pagerAdapter);
         //Indicator
         mIndicator = findViewById(R.id.indicator);
