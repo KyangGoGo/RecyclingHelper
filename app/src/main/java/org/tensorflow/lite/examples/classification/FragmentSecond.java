@@ -49,17 +49,6 @@ public class FragmentSecond extends Fragment {
         }else {
 
         }
-
-//        int findItem = Data.findItem(title);
-//
-//        if (findItem != -1) {
-//            warningText.setText(waring + Data.warningText[findItem]);
-//            addWarningLine(findItem);
-//        } else {
-//            warningText.setText("데이터 없음");
-//        }
-
-
         return rootView;
     }
 

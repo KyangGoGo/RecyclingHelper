@@ -5,9 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import org.tensorflow.lite.examples.classification.R;
 import org.tensorflow.lite.examples.classification.data.Data;
 
@@ -54,19 +52,5 @@ public class CustomDialog extends Dialog {
             item_discharge_day.setText("결과x");
             item_explanation.setText("결과x");
         }
-
-//        int getItemLocation = Data.findItem(text);
-//
-//        if(getItemLocation != -1){
-//            item_image.setImageResource(Data.images[getItemLocation]);
-//            item_classification.setText(Data.classification[getItemLocation]);
-//            item_discharge_day.setText(Data.discharge_day[getItemLocation]);
-//            item_explanation.setText(Data.explanation[getItemLocation]);
-//        }else{
-//            item_image.setImageResource(R.drawable.recycle);
-//            item_classification.setText("결과x");
-//            item_discharge_day.setText("결과x");
-//            item_explanation.setText("결과x");
-//        }
     }
 }

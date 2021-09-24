@@ -47,17 +47,6 @@ public class FragmentFirst extends Fragment {
                         data.getLineExplanation()[i]);
             }
         }
-
-//        int findItem = Data.findItem(title);
-//        if (findItem != -1) {
-//            int len = Data.lineProduct[findItem].length;
-//            for(int i=0; i<len; i++){
-//                addLine(Data.lineProduct[findItem][i], Data.lineImage[findItem][i], Data.lineExplanation[findItem][i]);
-//            }
-//        }else{
-//            //아이템을 찾지 못했을 경우
-//        }
-
         return rootView;
     }
 
@@ -77,7 +66,6 @@ public class FragmentFirst extends Fragment {
         //margin 셋팅
         productWrapParam.setMargins(0,10,0,20);
         productExplanationParam.setMargins(0,0,0,10);
-
 
         //가로세로 정렬 및 param 셋팅
         LinearLayout productWrap = new LinearLayout(getContext());
@@ -119,6 +107,5 @@ public class FragmentFirst extends Fragment {
         productWrap.addView(productExplanationAndImage);
 
         productLine.addView(productWrap);
-
     }
 }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -110,15 +109,5 @@ public class DetailActivity extends FragmentActivity {
             displayTitle.setText("값 없음");
             displayDay.setText("값 없음");
         }
-
-//        if (isExistItem!=-1){ // 해당 아이템이 있을 경우
-//            displayImage.setImageResource(Data.images[isExistItem]);
-//            displayTitle.setText(Data.changeWorld(text));
-//            displayDay.setText(Data.discharge_day[isExistItem]);
-//        }else{
-//            displayImage.setImageResource(R.drawable.recycle);
-//            displayTitle.setText("값 없음");
-//            displayDay.setText("값 없음");
-//        }
     }
 }

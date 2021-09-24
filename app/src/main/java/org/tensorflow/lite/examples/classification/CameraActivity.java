@@ -228,8 +228,6 @@ public abstract class CameraActivity extends AppCompatActivity
     recognitionRelativeLayout.setOnClickListener(this);
     recognitionRelativeLayout1.setOnClickListener(this);
     recognitionRelativeLayout2.setOnClickListener(this);
-
-
   }
 
   protected int[] getRgbBytes() {
@@ -561,9 +559,6 @@ public abstract class CameraActivity extends AppCompatActivity
       if (recognition != null) {
         if (recognition.getTitle() != null) {
           recognitionTextView.setText(recognition.getTitle());
-//          int getItem = Data.findItem(recognition.getTitle());
-//          if( getItem != -1 ) additionalExplanation.setText(Data.additional_explanation[getItem]);
-//          else additionalExplanation.setText("결과x");
           data = Data.getInstance(recognition.getTitle());
           if(data != null) additionalExplanation.setText(data.getAdditionalExplanation());
           else additionalExplanation.setText("결과x");

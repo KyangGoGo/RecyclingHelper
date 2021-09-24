@@ -66,8 +66,6 @@ public class FragmentThird extends Fragment {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-
-
         mainAdapter = new FragmentThirdAdapter(arrayList);
         recyclerView.setAdapter(mainAdapter);
 
