@@ -20,11 +20,11 @@ public class FragmentFirst extends Fragment {
     private ViewGroup rootView;
     private LinearLayout productLine;
     private int size = 400; //default 값
-    private String title;
+    private Data data;
     private int divisor = 5760;
 
-    public FragmentFirst(String title){
-        this.title = title;
+    public FragmentFirst(Data data){
+        this.data = data;
     }
 
     @Override
@@ -38,8 +38,6 @@ public class FragmentFirst extends Fragment {
 
         //화면 비율에 맞춰 size 크기 조정
         size = Data.getScreenSize(getActivity(), divisor);
-
-        Data data = Data.getInstance(title);
 
         if(data != null){
             int len = data.getLineProduct().length;

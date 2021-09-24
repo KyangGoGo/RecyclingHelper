@@ -122,6 +122,8 @@ public abstract class CameraActivity extends AppCompatActivity
       recognitionRelativeLayout1,
       recognitionRelativeLayout2;
 
+  private Data data;
+
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
     LOGGER.d("onCreate " + this);
@@ -562,7 +564,7 @@ public abstract class CameraActivity extends AppCompatActivity
 //          int getItem = Data.findItem(recognition.getTitle());
 //          if( getItem != -1 ) additionalExplanation.setText(Data.additional_explanation[getItem]);
 //          else additionalExplanation.setText("결과x");
-          Data data = Data.getInstance(recognition.getTitle());
+          data = Data.getInstance(recognition.getTitle());
           if(data != null) additionalExplanation.setText(data.getAdditionalExplanation());
           else additionalExplanation.setText("결과x");
         }

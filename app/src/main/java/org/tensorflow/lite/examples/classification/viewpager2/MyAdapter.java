@@ -12,12 +12,12 @@ import org.tensorflow.lite.examples.classification.data.Data;
 public class MyAdapter extends FragmentStateAdapter {
 
     public int count;
-    private String title;
+    private Data data;
 
-    public MyAdapter(FragmentActivity fa, int count, String title) {
+    public MyAdapter(FragmentActivity fa, int count, Data data) {
         super(fa);
         this.count = count;
-        this.title = title;
+        this.data = data;
     }
 
     @NonNull
@@ -25,9 +25,9 @@ public class MyAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         int index = getRealPosition(position);
 
-        if(index==0) return new FragmentFirst(title);
-        else if (index==1) return new FragmentSecond(title);
-        else return new FragmentThird(title);
+        if(index==0) return new FragmentFirst(data);
+        else if (index==1) return new FragmentSecond(data);
+        else return new FragmentThird(data);
     }
 
     @Override

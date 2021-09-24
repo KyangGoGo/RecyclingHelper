@@ -1,10 +1,7 @@
 package org.tensorflow.lite.examples.classification;
 
 
-import android.content.res.AssetFileDescriptor;
 import android.os.Bundle;
-import android.util.JsonReader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.tensorflow.lite.examples.classification.data.Data;
 import org.tensorflow.lite.examples.classification.data.FragementThirdData;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -33,10 +27,10 @@ public class FragmentThird extends Fragment {
     private FragmentThirdAdapter mainAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
-    private String title;
+    private Data data;
 
-    public FragmentThird(String title) {
-        this.title = title;
+    public FragmentThird(Data data) {
+        this.data = data;
     }
 
     @Override
@@ -63,7 +57,7 @@ public class FragmentThird extends Fragment {
             }
             JSONObject json = new JSONObject(sb.toString());
 
-            JSONArray jsonArray = json.getJSONArray(getQuestions(title));
+            JSONArray jsonArray = json.getJSONArray(getQuestions(data));
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 FragementThirdData mainData = new FragementThirdData(jsonObject.get("question").toString(), jsonObject.get("answer").toString());
@@ -80,22 +74,19 @@ public class FragmentThird extends Fragment {
         return rootView;
     }
 
-    public String getQuestions(String title) {
+    public String getQuestions(Data data) {
         String tem = null;
-        switch (title) {
-            case "고철":
-                tem = "can";
-                break;
-            case "비닐":
+        switch (data.getClassification()) {
+            case "비닐류":
                 tem = "plastic_bag";
                 break;
-            case "스티로폼":
+            case "폐스티로폼":
                 tem = "styrofoam";
                 break;
-            case "유리병":
+            case "유리병류":
                 tem = "glass";
                 break;
-            case "종이":
+            case "종이류":
                 tem = "paper";
                 break;
             case "캔류":
@@ -108,7 +99,7 @@ public class FragmentThird extends Fragment {
                 tem = "plastic";
                 break;
             case "형광등":
-                tem = "can";
+                tem = "lamp";
                 break;
         }
         return tem;

@@ -18,15 +18,15 @@ import org.tensorflow.lite.examples.classification.data.Data;
 
 public class FragmentSecond extends Fragment {
 
-    private String title;
+    private Data data;
     private String waring = "주의!\n";
     private TextView warningText;
     private LinearLayout warningBody;
     private int size = 300;
     int divisor = 5707; //제수
 
-    public FragmentSecond(String title) {
-        this.title = title;
+    public FragmentSecond(Data data) {
+        this.data = data;
     }
 
     @Override
@@ -42,7 +42,6 @@ public class FragmentSecond extends Fragment {
 
         size = Data.getScreenSize(getActivity(), divisor);
 
-        Data data = Data.getInstance(title);
         if(data != null){
             String text = waring + data.getWarningText();
             warningText.setText(text);

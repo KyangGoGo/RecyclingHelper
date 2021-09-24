@@ -28,6 +28,8 @@ public class DetailActivity extends FragmentActivity {
         displayDay;
     private ImageView displayImage;
 
+    private Data data;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class DetailActivity extends FragmentActivity {
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
         //Adapter
-        pagerAdapter = new MyAdapter(this, Data.viewPage, title);
+        pagerAdapter = new MyAdapter(this, Data.viewPage, data);
         mPager.setAdapter(pagerAdapter);
         //Indicator
         mIndicator = findViewById(R.id.indicator);
@@ -93,7 +95,7 @@ public class DetailActivity extends FragmentActivity {
     }
     private void upperBarSetting(String text){
         //int isExistItem = Data.findItem(text);
-        Data data = Data.getInstance(text);
+        data = Data.getInstance(text);
 
         displayImage = findViewById(R.id.display_image);
         displayTitle = findViewById(R.id.display_title);
