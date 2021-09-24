@@ -2,7 +2,7 @@ package org.tensorflow.lite.examples.classification.data;
 
 import org.tensorflow.lite.examples.classification.R;
 
-public class Battery extends Data2 {
+public class Battery extends Data {
     public static final String classification = "폐전지";
     public static final String discharge_day = "매일";
     public static final String[] explanation = {
@@ -21,7 +21,7 @@ public class Battery extends Data2 {
             "전지는 제품에서 분리하여 배출\n" +
                     "주요 거점(읍·면·동·아파트 공동주택 등의 폐형광등·폐전지 일체함 또는 클린하우스·재활용도움센터 등)의 전용수거함에 배출"
     };
-    public static final String warningText = "";
+    public static final String warningText = " ";
     public static final String[] warningContent = {};
     public static final Integer[][] warningImage = {{}};
     public static final String[][] warningMessage = {{}};

@@ -2,28 +2,18 @@ package org.tensorflow.lite.examples.classification;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import org.tensorflow.lite.examples.classification.data.Data;
-import org.tensorflow.lite.examples.classification.data.Data2;
-import org.w3c.dom.Text;
 
 public class FragmentFirst extends Fragment {
 
@@ -49,14 +39,14 @@ public class FragmentFirst extends Fragment {
         //화면 비율에 맞춰 size 크기 조정
         size = Data.getScreenSize(getActivity(), divisor);
 
-        Data2 data2 = Data2.getInstance(title);
+        Data data = Data.getInstance(title);
 
-        if(data2 != null){
-            int len = data2.getLineProduct().length;
+        if(data != null){
+            int len = data.getLineProduct().length;
             for(int i=0; i<len; i++) {
-                addLine(data2.getLineProduct()[i],
-                        data2.getLineImage()[i],
-                        data2.getLineExplanation()[i]);
+                addLine(data.getLineProduct()[i],
+                        data.getLineImage()[i],
+                        data.getLineExplanation()[i]);
             }
         }
 

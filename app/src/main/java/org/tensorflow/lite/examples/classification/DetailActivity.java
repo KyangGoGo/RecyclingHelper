@@ -2,7 +2,6 @@ package org.tensorflow.lite.examples.classification;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,14 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
 import org.tensorflow.lite.examples.classification.data.Data;
-import org.tensorflow.lite.examples.classification.data.Data2;
 import org.tensorflow.lite.examples.classification.viewpager2.MyAdapter;
 
 import me.relex.circleindicator.CircleIndicator3;
@@ -71,7 +66,7 @@ public class DetailActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                mIndicator.animatePageSelected(position%Data.viewPage);
+                mIndicator.animatePageSelected(position% Data.viewPage);
             }
 
         });
@@ -98,16 +93,16 @@ public class DetailActivity extends FragmentActivity {
     }
     private void upperBarSetting(String text){
         //int isExistItem = Data.findItem(text);
-        Data2 data2 = Data2.getInstance(text);
+        Data data = Data.getInstance(text);
 
         displayImage = findViewById(R.id.display_image);
         displayTitle = findViewById(R.id.display_title);
         displayDay = findViewById(R.id.display_day);
 
-        if(data2 != null){
-            displayImage.setImageResource(data2.getImage());
-            displayTitle.setText(data2.getClassification());
-            displayDay.setText(data2.getDischarge_day());
+        if(data != null){
+            displayImage.setImageResource(data.getImage());
+            displayTitle.setText(data.getClassification());
+            displayDay.setText(data.getDischarge_day());
         }else{
             displayImage.setImageResource(R.drawable.recycle);
             displayTitle.setText("값 없음");

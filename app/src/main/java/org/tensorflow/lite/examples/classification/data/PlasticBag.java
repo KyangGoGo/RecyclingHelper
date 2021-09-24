@@ -2,7 +2,7 @@ package org.tensorflow.lite.examples.classification.data;
 
 import org.tensorflow.lite.examples.classification.R;
 
-public class PlasticBag extends Data2 {
+public class PlasticBag extends Data {
     public static final String classification = "비닐류";
     public static final String discharge_day = "목, 일";
     public static final String[] explanation = {
@@ -10,7 +10,7 @@ public class PlasticBag extends Data2 {
             "이물질이 묻은 경우 깨끗이 씻어서 배출"
     };
     public static final String additionalExplanation = "";
-    public static final Integer image = R.drawable.logo_paper;
+    public static final Integer image = R.drawable.logo_plastic_bag;
     public static final String[] lineProduct = {
             "과자, 라면, 빵 봉지, 1회용 비닐 봉투 등 모든 비닐"
     };
