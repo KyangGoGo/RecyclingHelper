@@ -12,12 +12,12 @@ import org.tensorflow.lite.examples.classification.data.Data;
 public class CustomDialog extends Dialog {
 
     private String text;
-    private ImageView item_image;
-    private TextView dialogText,
-        item_classification, item_discharge_day,
-        item_explanation;
+    private ImageView itemImage;
+    private TextView itemClassification,
+        itemDischargeDay,
+        itemExplanation;
 
-    private StringBuffer explanation = new StringBuffer();
+    private StringBuffer explanation = new StringBuffer("\n");
 
     public CustomDialog(@NonNull Context context, String text){
         super(context);
@@ -30,27 +30,25 @@ public class CustomDialog extends Dialog {
 
         setContentView(R.layout.custom_dialog);
 
-        item_image = findViewById(R.id.dialog_image);
-        dialogText = findViewById(R.id.dialog_text);
-        item_classification = findViewById(R.id.select_classification);
-        item_discharge_day = findViewById(R.id.select_discharge_day);
-        item_explanation = findViewById(R.id.select_explanation);
-
-        dialogText.setText(text);
+        itemImage = findViewById(R.id.dialog_image);
+        itemClassification = findViewById(R.id.select_classification);
+        itemDischargeDay = findViewById(R.id.select_discharge_day);
+        itemExplanation = findViewById(R.id.select_explanation);
 
         Data data = Data.getInstance(text);
+        
         if(data != null) {
-            item_image.setImageResource(data.getImage());
-            item_classification.setText(data.getClassification());
-            item_discharge_day.setText(data.getDischarge_day());
-            for(String tmp : data.getExplanation()) explanation.append(tmp).append("\n");
-            item_explanation.setText(explanation);
+            itemImage.setImageResource(data.getImage());
+            itemClassification.setText(data.getClassification());
+            itemDischargeDay.setText(data.getDischarge_day());
+            for(String tmp : data.getExplanation()) explanation.append(" ").append(tmp).append("\n\n");
+            itemExplanation.setText(explanation);
         }
         else{
-            item_image.setImageResource(R.drawable.recycle);
-            item_classification.setText("결과x");
-            item_discharge_day.setText("결과x");
-            item_explanation.setText("결과x");
+            itemImage.setImageResource(R.drawable.recycle);
+            itemClassification.setText("결과x");
+            itemDischargeDay.setText("결과x");
+            itemExplanation.setText("결과x");
         }
     }
 }
