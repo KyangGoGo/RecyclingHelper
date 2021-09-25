@@ -41,7 +41,6 @@ import android.os.HandlerThread;
 import android.os.Trace;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.util.Size;
 import android.view.Display;
 import android.view.Surface;
@@ -65,6 +64,7 @@ import java.util.List;
 
 import org.tensorflow.lite.examples.classification.customdialog.CustomDialog;
 import org.tensorflow.lite.examples.classification.data.Data;
+import org.tensorflow.lite.examples.classification.data.Tip;
 import org.tensorflow.lite.examples.classification.env.ImageUtils;
 import org.tensorflow.lite.examples.classification.env.Logger;
 import org.tensorflow.lite.examples.classification.tflite.Classifier.Device;
@@ -97,7 +97,7 @@ public abstract class CameraActivity extends AppCompatActivity
   protected TextView recognitionTextView,
       recognition1TextView,
       recognition2TextView,
-      additionalExplanation;
+      tip;
 //      recognitionValueTextView,
 //      recognition1ValueTextView,
 //      recognition2ValueTextView;
@@ -219,7 +219,8 @@ public abstract class CameraActivity extends AppCompatActivity
     numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
 
     //추가정보 설명글
-    additionalExplanation = findViewById(R.id.additional_explanation);
+    tip = findViewById(R.id.tip);
+    tip.setText(Tip.getRandomTip());
 
     //progressbar
     recognitionProgressbar = findViewById(R.id.detected_item_progress);
@@ -368,6 +369,8 @@ public abstract class CameraActivity extends AppCompatActivity
     handlerThread = new HandlerThread("inference");
     handlerThread.start();
     handler = new Handler(handlerThread.getLooper());
+
+    tip.setText(Tip.getRandomTip());
   }
 
   @Override
@@ -561,9 +564,6 @@ public abstract class CameraActivity extends AppCompatActivity
       if (recognition != null) {
         if (recognition.getTitle() != null) {
           recognitionTextView.setText(recognition.getTitle());
-          data = Data.getInstance(recognition.getTitle());
-          if(data != null){ additionalExplanation.setText(data.getAdditionalExplanation()); }
-          else{ additionalExplanation.setText("결과x"); }
         }
         if (recognition.getConfidence() != null){
 //          recognitionValueTextView.setText(String.format("%.2f", (100 * recognition.getConfidence())) + "%");

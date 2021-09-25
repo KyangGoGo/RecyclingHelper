@@ -7,27 +7,45 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:padding="6dp"
-            android:id="@+id/fnq_questions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="test1"
-            android:textSize="15dp"
-            android:minHeight="40dp"
-            android:background="@drawable/edge"
-            />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/fnq_questions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:background="@drawable/edge"
+                    android:minHeight="40dp"
+                    android:padding="6dp"
+                    android:text="test1"
+                    android:textSize="15dp"
+                    />
+                <ImageView android:src="@drawable/down_arrow_nor"
+                    android:id="@+id/fnq_answer_down"
+                    android:layout_width="20dip"
+                    android:layout_height="10dip"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
         <TextView
             android:padding="6dp"
             android:id="@+id/fnq_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="aaaaaa"
+            android:text="bottomText"
             android:textSize="15dp"
             android:visibility="gone"
             android:minHeight="40dp"
-            android:background="@drawable/edge"
+            android:background="#FFF0F0"
+            android:layout_gravity="bottom"
             />
+
+
+
     </LinearLayout>
 
 </LinearLayout>
