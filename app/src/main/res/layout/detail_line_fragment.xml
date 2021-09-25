@@ -10,6 +10,14 @@
         android:padding="10dp"
         android:background="#00ddb3"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/line_text"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="match_parent">

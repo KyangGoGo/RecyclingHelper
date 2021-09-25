@@ -20,6 +20,7 @@ public class DetailLineFragment extends Fragment {
 
     private ViewGroup rootView;
     private LinearLayout productLine;
+    private TextView lineText;
     private int size = 400; //default 값
     private Data data;
     private int divisor = 5760;
@@ -36,6 +37,9 @@ public class DetailLineFragment extends Fragment {
 
         //최고 layout
         productLine = rootView.findViewById(R.id.product_line);
+
+        lineText = rootView.findViewById(R.id.line_text);
+        lineText.setText("상품별 분리배출 방법");
 
         //화면 비율에 맞춰 size 크기 조정
         size = Data.getScreenSize(getActivity(), divisor);
