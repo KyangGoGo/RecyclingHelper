@@ -371,7 +371,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:text="@string/tfe_ic_device"
+            android:text="@string/ic_device"
             android:textColor="@android:color/black" />
 
         <Spinner
@@ -381,7 +381,7 @@
             android:layout_marginTop="0dp"
             android:layout_alignParentRight="true"
             android:entries="@array/tfe_ic_devices"
-            android:prompt="@string/tfe_ic_device" />
+            android:prompt="@string/ic_device" />
     </RelativeLayout>
 
     <LinearLayout

@@ -132,7 +132,7 @@ public abstract class CameraActivity extends AppCompatActivity
     super.onCreate(null);
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-    setContentView(R.layout.tfe_ic_activity_camera);
+    setContentView(R.layout.activity_camera);
 
     if (hasPermission()) {
       setFragment();
