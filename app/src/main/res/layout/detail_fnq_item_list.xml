@@ -7,11 +7,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="wrap_content"
+                android:layout_gravity="top">
                 <TextView
                     android:id="@+id/fnq_questions"
                     android:layout_width="match_parent"
@@ -21,7 +20,7 @@
                     android:minHeight="40dp"
                     android:padding="6dp"
                     android:text="test1"
-                    android:textSize="15dp"
+                    android:textSize="20dp"
                     />
                 <ImageView android:src="@drawable/down_arrow_nor"
                     android:id="@+id/fnq_answer_down"
@@ -37,14 +36,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="bottomText"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:visibility="gone"
             android:minHeight="40dp"
             android:background="#FFF0F0"
-            android:layout_gravity="bottom"
             />
-
-
 
     </LinearLayout>
 
