@@ -21,7 +21,7 @@
         <TextView
             android:id="@+id/display_title"
             android:layout_marginStart="12dp"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

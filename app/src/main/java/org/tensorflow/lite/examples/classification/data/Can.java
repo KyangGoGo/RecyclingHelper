@@ -6,7 +6,7 @@ public class Can extends Data {
     public static final String classification = "캔류";
     public static final String discharge_day_text = "매일";
     public static final Integer[] discharge_day_images = {
-            R.drawable.detail_icon_sun
+            R.drawable.detail_icon_every_day
     };
     public static final String[] explanation = {
             "내용물은 비우고 물로 씻은 후 가능하면 압착",
