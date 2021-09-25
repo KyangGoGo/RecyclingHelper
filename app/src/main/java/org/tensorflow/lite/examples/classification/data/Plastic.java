@@ -6,7 +6,7 @@ public class Plastic extends Data {
     public static final String classification = "플라스틱류";
     public static final String discharge_day_text = "월, 수, 금, 일";
     public static final Integer[] discharge_day_images = {
-            R.drawable.detail_icon_mon2,
+            R.drawable.detail_icon_mon,
             R.drawable.detail_icon_wen,
             R.drawable.detail_icon_fri,
             R.drawable.detail_icon_sun

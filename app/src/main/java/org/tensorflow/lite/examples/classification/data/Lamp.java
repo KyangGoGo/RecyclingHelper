@@ -6,7 +6,7 @@ public class Lamp extends Data {
     public static final String classification = "형광등";
     public static final String discharge_day_text = "매일";
     public static final Integer[] discharge_day_images = {
-            R.drawable.detail_icon_sun
+            R.drawable.detail_icon_every_day
     };
     public static final String[] explanation = {
             "폐형광등 전용수거함 또는 구매업체에 배출",

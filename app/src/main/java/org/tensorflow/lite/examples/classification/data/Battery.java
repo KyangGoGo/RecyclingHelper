@@ -6,7 +6,7 @@ public class Battery extends Data {
     public static final String classification = "폐전지";
     public static final String discharge_day_text = "매일";
     public static final Integer[] discharge_day_images = {
-            R.drawable.detail_icon_sun
+            R.drawable.detail_icon_every_day
     };
     public static final String[] explanation = {
             "전용수거함에 배출",
