@@ -4,7 +4,10 @@ import org.tensorflow.lite.examples.classification.R;
 
 public class Lamp extends Data {
     public static final String classification = "형광등";
-    public static final String discharge_day = "매일";
+    public static final String discharge_day_text = "매일";
+    public static final Integer[] discharge_day_images = {
+            R.drawable.detail_icon_sun
+    };
     public static final String[] explanation = {
             "폐형광등 전용수거함 또는 구매업체에 배출",
             "깨지지 않도록 주의하여 배출"
@@ -36,6 +39,18 @@ public class Lamp extends Data {
     };
 
     public Lamp() {
-        super(classification, discharge_day, explanation, additionalExplanation, image, lineProduct, lineImage, lineExplanation, warningText, warningContent, warningImage, warningMessage);
+        super(classification,
+                discharge_day_text,
+                discharge_day_images,
+                explanation,
+                additionalExplanation,
+                image,
+                lineProduct,
+                lineImage,
+                lineExplanation,
+                warningText,
+                warningContent,
+                warningImage,
+                warningMessage);
     }
 }

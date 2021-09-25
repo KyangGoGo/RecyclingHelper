@@ -36,12 +36,12 @@ public class CustomDialog extends Dialog {
         itemExplanation = findViewById(R.id.select_explanation);
 
         Data data = Data.getInstance(text);
-        
+
         if(data != null) {
             itemImage.setImageResource(data.getImage());
             itemClassification.setText(data.getClassification());
-            itemDischargeDay.setText(data.getDischarge_day());
-            for(String tmp : data.getExplanation()) explanation.append(" ").append(tmp).append("\n\n");
+            itemDischargeDay.setText(data.getDischarge_day_text());
+            for(String tmp : data.getExplanation()) explanation.append("  ").append(tmp).append("\n");
             itemExplanation.setText(explanation);
         }
         else{

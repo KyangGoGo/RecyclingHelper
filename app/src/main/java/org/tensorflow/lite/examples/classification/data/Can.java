@@ -4,7 +4,10 @@ import org.tensorflow.lite.examples.classification.R;
 
 public class Can extends Data {
     public static final String classification = "캔류";
-    public static final String discharge_day = "매일";
+    public static final String discharge_day_text = "매일";
+    public static final Integer[] discharge_day_images = {
+            R.drawable.detail_icon_sun
+    };
     public static final String[] explanation = {
             "내용물은 비우고 물로 씻은 후 가능하면 압착",
             "캔에 부착된 플라스틱 뚜껑 등 제거",
@@ -38,6 +41,18 @@ public class Can extends Data {
     };
 
     public Can() {
-        super(classification, discharge_day, explanation, additionalExplanation, image, lineProduct, lineImage, lineExplanation, warningText, warningContent, warningImage, warningMessage);
+        super(classification,
+                discharge_day_text,
+                discharge_day_images,
+                explanation,
+                additionalExplanation,
+                image,
+                lineProduct,
+                lineImage,
+                lineExplanation,
+                warningText,
+                warningContent,
+                warningImage,
+                warningMessage);
     }
 }

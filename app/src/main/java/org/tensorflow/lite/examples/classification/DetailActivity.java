@@ -1,9 +1,12 @@
 package org.tensorflow.lite.examples.classification;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,9 +26,9 @@ public class DetailActivity extends FragmentActivity {
     private FragmentStateAdapter pagerAdapter;
     private CircleIndicator3 mIndicator;
 
-    private TextView displayTitle,
-        displayDay;
+    private TextView displayTitle;
     private ImageView displayImage;
+    private LinearLayout displayDay;
 
     private Data data;
 
@@ -103,11 +106,19 @@ public class DetailActivity extends FragmentActivity {
         if(data != null){
             displayImage.setImageResource(data.getImage());
             displayTitle.setText(data.getClassification());
-            displayDay.setText(data.getDischarge_day());
+            //displayDay.setImageBitmap(data.getDischarge_day_images());
+            Integer[] images = data.getDischarge_day_images();
+            for(int i=0; i<images.length; i++){
+                ImageView discharge_day_image = new ImageView(getApplicationContext());
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), images[i]);
+                bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+                discharge_day_image.setImageBitmap(bitmap);
+                displayDay.addView(discharge_day_image);
+            }
         }else{
             displayImage.setImageResource(R.drawable.recycle);
             displayTitle.setText("값 없음");
-            displayDay.setText("값 없음");
+            //displayDay.setText("값 없음");
         }
     }
 }

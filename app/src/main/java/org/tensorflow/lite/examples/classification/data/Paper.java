@@ -4,7 +4,12 @@ import org.tensorflow.lite.examples.classification.R;
 
 public class Paper extends Data {
     public static final String classification = "종이류";
-    public static final String discharge_day = "화, 목, 토";
+    public static final String discharge_day_text = "화, 목, 토";
+    public static final Integer[] discharge_day_images = {
+            R.drawable.detail_icon_tue,
+            R.drawable.detail_icon_thu,
+            R.drawable.detail_icon_sat
+    };
     public static final String[] explanation = {
             "끈으로 잘 묶거나, 흰색 또는 투명봉투를 사용하여 배출",
             "물기에 젖지 않게 묶거나 박스류에 담아서 배출",
@@ -46,6 +51,18 @@ public class Paper extends Data {
     };
 
     public Paper() {
-        super(classification, discharge_day, explanation, additionalExplanation, image, lineProduct, lineImage, lineExplanation, warningText, warningContent, warningImage, warningMessage);
+        super(classification,
+                discharge_day_text,
+                discharge_day_images,
+                explanation,
+                additionalExplanation,
+                image,
+                lineProduct,
+                lineImage,
+                lineExplanation,
+                warningText,
+                warningContent,
+                warningImage,
+                warningMessage);
     }
 }

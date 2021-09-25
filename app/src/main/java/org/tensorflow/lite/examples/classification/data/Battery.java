@@ -4,7 +4,10 @@ import org.tensorflow.lite.examples.classification.R;
 
 public class Battery extends Data {
     public static final String classification = "폐전지";
-    public static final String discharge_day = "매일";
+    public static final String discharge_day_text = "매일";
+    public static final Integer[] discharge_day_images = {
+            R.drawable.detail_icon_sun
+    };
     public static final String[] explanation = {
             "전용수거함에 배출",
             "전지는 제품에서 분리하여 배출"
@@ -27,6 +30,18 @@ public class Battery extends Data {
     public static final String[][] warningMessage = {{}};
 
     public Battery() {
-        super(classification, discharge_day, explanation, additionalExplanation, image, lineProduct, lineImage, lineExplanation, warningText, warningContent, warningImage, warningMessage);
+        super(classification,
+                discharge_day_text,
+                discharge_day_images,
+                explanation,
+                additionalExplanation,
+                image,
+                lineProduct,
+                lineImage,
+                lineExplanation,
+                warningText,
+                warningContent,
+                warningImage,
+                warningMessage);
     }
 }

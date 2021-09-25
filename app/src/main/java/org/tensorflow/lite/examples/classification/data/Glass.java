@@ -4,7 +4,11 @@ import org.tensorflow.lite.examples.classification.R;
 
 public class Glass extends Data {
     public static final String classification = "유리병류";
-    public static final String discharge_day = "화, 토";
+    public static final String discharge_day_text = "화, 토";
+    public static final Integer[] discharge_day_images = {
+            R.drawable.detail_icon_tue,
+            R.drawable.detail_icon_sat
+    };
     public static final String[] explanation = {
             "뚜껑 제거 후 내용물을 깨끗이 비운 후 배출",
             "일반병(소주, 맥주, 음료)은 소매정 등에서 보증금을 환불받을 수 있음",
@@ -54,6 +58,18 @@ public class Glass extends Data {
     };
 
     public Glass() {
-        super(classification, discharge_day, explanation, additionalExplanation, image, lineProduct, lineImage, lineExplanation, warningText, warningContent, warningImage, warningMessage);
+        super(classification,
+                discharge_day_text,
+                discharge_day_images,
+                explanation,
+                additionalExplanation,
+                image,
+                lineProduct,
+                lineImage,
+                lineExplanation,
+                warningText,
+                warningContent,
+                warningImage,
+                warningMessage);
     }
 }

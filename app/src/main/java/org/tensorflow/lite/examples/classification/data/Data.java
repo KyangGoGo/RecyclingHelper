@@ -6,7 +6,8 @@ import android.view.Display;
 
 public class Data {
     private final String classification;
-    private final String discharge_day;
+    private final String discharge_day_text;
+    private final Integer[] discharge_day_images;
     private final String[] explanation;
     private final String additionalExplanation;
     private final Integer image;
@@ -21,7 +22,8 @@ public class Data {
     public static Integer viewPage = 3;
 
     public Data(String classification,
-                String discharge_day,
+                String discharge_day_text,
+                Integer[] discharge_day_images,
                 String[] explanation,
                 String additionalExplanation,
                 Integer image,
@@ -33,7 +35,8 @@ public class Data {
                 Integer[][] warningImage,
                 String[][] warningMessage) {
         this.classification = classification;
-        this.discharge_day = discharge_day;
+        this.discharge_day_text = discharge_day_text;
+        this.discharge_day_images = discharge_day_images;
         this.explanation = explanation;
         this.additionalExplanation = additionalExplanation;
         this.image = image;
@@ -75,8 +78,10 @@ public class Data {
         return classification;
     }
 
-    public String getDischarge_day() {
-        return discharge_day;
+    public String getDischarge_day_text() { return discharge_day_text; }
+
+    public Integer[] getDischarge_day_images() {
+        return discharge_day_images;
     }
 
     public String[] getExplanation() {

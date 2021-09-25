@@ -4,7 +4,13 @@ import org.tensorflow.lite.examples.classification.R;
 
 public class Plastic extends Data {
     public static final String classification = "플라스틱류";
-    public static final String discharge_day = "월, 수, 금, 일";
+    public static final String discharge_day_text = "월, 수, 금, 일";
+    public static final Integer[] discharge_day_images = {
+            R.drawable.detail_icon_mon,
+            R.drawable.detail_icon_wen,
+            R.drawable.detail_icon_fri,
+            R.drawable.detail_icon_sun
+    };
     public static final String[] explanation = {
             "용기에 남아 있는 내용물을 깨끗이 비우고, 다른 재질로 된 부분 (뚜껑과 부착상표 등)은 제거하여 압착하여 배출",
             "생수, 음료수 등 투명 페트병은 재활용도움센터 전용수거함에 라벨 제거 후 별도배출"
@@ -47,6 +53,18 @@ public class Plastic extends Data {
     };
 
     public Plastic() {
-        super(classification, discharge_day, explanation, additionalExplanation, image, lineProduct, lineImage, lineExplanation, warningText, warningContent, warningImage, warningMessage);
+        super(classification,
+                discharge_day_text,
+                discharge_day_images,
+                explanation,
+                additionalExplanation,
+                image,
+                lineProduct,
+                lineImage,
+                lineExplanation,
+                warningText,
+                warningContent,
+                warningImage,
+                warningMessage);
     }
 }
