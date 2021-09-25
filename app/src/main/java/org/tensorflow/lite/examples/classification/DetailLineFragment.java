@@ -100,6 +100,8 @@ public class DetailLineFragment extends Fragment {
 
         TextView productExplanation = new TextView(getContext());
         productExplanation.setText(lineExplanation);
+        productExplanation.setTextSize(15);
+        productExplanation.setTextColor(Color.BLACK);
         productExplanation.setBackgroundResource(R.drawable.table_border);
         productExplanation.setLayoutParams(productExplanationParam);
         productExplanation.setPadding(10,10,10,10);

@@ -2,6 +2,7 @@ package org.tensorflow.lite.examples.classification;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -102,6 +103,8 @@ public class DetailWarningFragment extends Fragment {
                 //텍스트 생성
                 TextView warnText = new TextView(getContext());
                 warnText.setText(data.getWarningMessage()[i][j]);
+                warnText.setTextColor(Color.BLACK);
+                warnText.setTextSize(12);
                 //박스에 이미지 및 텍스트 추가
                 addItem.addView(warnImage);
                 addItem.addView(warnText);
