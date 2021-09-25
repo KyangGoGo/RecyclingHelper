@@ -8,7 +8,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="35dp"
         android:padding="10dp"
-        android:background="#ffcccc"
+        android:background="#00ddb3"
         android:orientation="vertical">
         <ScrollView
             android:layout_width="fill_parent"
@@ -17,6 +17,7 @@
                 android:id="@+id/product_line"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#FFFFFF"
                 android:orientation="vertical"/>
         </ScrollView>
     </LinearLayout>
