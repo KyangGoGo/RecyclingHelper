@@ -39,7 +39,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0'
     implementation 'com.google.android.material:material:1.4.0'
-    androidTestImplementation 'junit:junit:4.12'
 
     // Build off of nightly TensorFlow Lite
     // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite
@@ -48,8 +47,6 @@ dependencies {
     implementation group: 'org.tensorflow', name: 'tensorflow-lite-gpu', version: '2.3.0'
     // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite-support
     implementation group: 'org.tensorflow', name: 'tensorflow-lite-support', version: '0.1.0'
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 
     // Use local TensorFlow library
     // implementation 'org.tensorflow:tensorflow-lite-local:0.0.0'
