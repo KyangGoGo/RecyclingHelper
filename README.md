@@ -1,6 +1,6 @@
 ## RecyclingHelper (분리수거 도우미) 
 
-<img src="https://img.shields.io/badge/language-Java-007396?style=flat"> <img src="https://img.shields.io/badge/license-MIT-6DB33F?style=flat"> <img src="https://img.shields.io/badge/license-MIT-007396?style=flat"> 
+<img src="https://img.shields.io/badge/language-Java-007396?style=flat"> <img src="https://img.shields.io/badge/license-MIT-6DB33F?style=flat">
 
 <img src="https://img.shields.io/badge/Android-3DDC84?style=flat&logo=Android&logoColor=white"> <img src="https://img.shields.io/badge/TensorFlowLite-FF6F00?style=flat&logo=TensorFlow&logoColor=white">
 
