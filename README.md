@@ -6,6 +6,13 @@
 
 실시간 이미지 인식을 통하여 재활용 쓰레기 품목별 분비배출방법을 안내하는 안드로이드 어플리케이션
 
+## 주의
+이미지 인식 모델(model.tflite)은 용량이 커서 Google Drive에 저장했습니다.
+### 모델 다운로드
+https://drive.google.com/file/d/1YUVO1jt2CY6HmuG2oye1tcEh0DHDYlGs/view?usp=sharing
+### 애플리케이션에 적용
+app/src/main/assets 디렉토리에 다운받은 model.tflite 저장
+
 ## 사용 방법
 ### 재활용 쓰레기 인식
 <img src="https://user-images.githubusercontent.com/27201209/134797411-f420c605-9079-4b72-8daa-ca5136708ac0.jpg" width="300px" height="auto"/>
