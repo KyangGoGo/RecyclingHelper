@@ -1,4 +1,8 @@
-## RecyclingHelper (분리수거 도우미) <img src="https://img.shields.io/badge/language-Java-007396?style=flat"> <img src="https://img.shields.io/badge/license-MIT-6DB33F?style=flat"> <img src="https://img.shields.io/badge/license-MIT-007396?style=flat"> <img src="https://img.shields.io/badge/Android-3DDC84?style=flat&logo=Android&logoColor=white"> <img src="https://img.shields.io/badge/TensorFlowLite-FF6F00?style=flat&logo=TensorFlow&logoColor=white">
+## RecyclingHelper (분리수거 도우미) 
+
+<img src="https://img.shields.io/badge/language-Java-007396?style=flat"> <img src="https://img.shields.io/badge/license-MIT-6DB33F?style=flat"> <img src="https://img.shields.io/badge/license-MIT-007396?style=flat"> 
+
+<img src="https://img.shields.io/badge/Android-3DDC84?style=flat&logo=Android&logoColor=white"> <img src="https://img.shields.io/badge/TensorFlowLite-FF6F00?style=flat&logo=TensorFlow&logoColor=white">
 
 실시간 이미지 인식을 통하여 재활용 쓰레기 품목별 분비배출방법을 안내하는 안드로이드 어플리케이션
 
