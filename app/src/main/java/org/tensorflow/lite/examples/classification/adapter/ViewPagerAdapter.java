@@ -25,6 +25,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         int index = getRealPosition(position);
 
+        //프래그먼트에 위치에 맞게 인덱싱
         if(index==0) return new DetailLineFragment(data);
         else if (index==1) return new DetailWarningFragment(data);
         else return new DetailFnQFragment(data);

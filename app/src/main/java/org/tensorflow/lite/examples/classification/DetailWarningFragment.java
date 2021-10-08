@@ -53,7 +53,7 @@ public class DetailWarningFragment extends Fragment {
         return rootView;
     }
 
-
+    //경고 화면 요소 셋팅
     private void addWarningLine(Data data) {
         LinearLayout.LayoutParams warnItemParam =
                 new LinearLayout.LayoutParams(

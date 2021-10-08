@@ -110,7 +110,7 @@ public class DetailActivity extends FragmentActivity {
             Integer[] images = data.getDischarge_day_images();
             for(int i=0; i<images.length; i++){
                 ImageView discharge_day_image = new ImageView(getApplicationContext());
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), images[i]);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), images[i]); //이미지 비트맵 변환
                 bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
                 discharge_day_image.setImageBitmap(bitmap);
                 displayDay.addView(discharge_day_image);

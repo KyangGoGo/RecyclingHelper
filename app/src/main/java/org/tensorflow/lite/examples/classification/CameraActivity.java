@@ -560,6 +560,8 @@ public abstract class CameraActivity extends AppCompatActivity
   @UiThread
   protected void showResultsInBottomSheet(List<Recognition> results) {
     if (results != null && results.size() >= 3) {
+
+      //첫 번째로 확률이 높은 것
       Recognition recognition = results.get(0);
       if (recognition != null) {
         if (recognition.getTitle() != null) {
@@ -571,6 +573,7 @@ public abstract class CameraActivity extends AppCompatActivity
         }
       }
 
+      //두 번째로 확률이 높은 것
       Recognition recognition1 = results.get(1);
       if (recognition1 != null) {
         if (recognition1.getTitle() != null) {
@@ -583,6 +586,7 @@ public abstract class CameraActivity extends AppCompatActivity
         }
       }
 
+      //세 번째로 확률이 높은 것 클릭
       Recognition recognition2 = results.get(2);
       if (recognition2 != null) {
         if (recognition2.getTitle() != null) {
@@ -671,12 +675,11 @@ public abstract class CameraActivity extends AppCompatActivity
       }
       setNumThreads(--numThreads);
       threadsTextView.setText(String.valueOf(numThreads));
-    }
-    else if (v.getId() == R.id.item_relative){
+    } else if (v.getId() == R.id.item_relative){ //첫 번째로 확률이 높은 것 클릭
       showDialog((String) recognitionTextView.getText());
-    } else if (v.getId() == R.id.item1_relative){
+    } else if (v.getId() == R.id.item1_relative){ //두 번째로 확률이 높은 것 클릭
       showDialog((String) recognition1TextView.getText());
-    } else if (v.getId() == R.id.item2_relative){
+    } else if (v.getId() == R.id.item2_relative){ //세 번째로 확률이 높은 것 클릭
       showDialog((String) recognition2TextView.getText());
     }
   }

@@ -55,6 +55,7 @@ public class DetailLineFragment extends Fragment {
         return rootView;
     }
 
+    // 종류별 관련 아이템들 셋팅
     private void addLine(String lineName, Integer lineImage, String lineExplanation){
         LinearLayout.LayoutParams productWrapParam =
                 new LinearLayout.LayoutParams(
