@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import org.tensorflow.lite.examples.classification.R;
 import org.tensorflow.lite.examples.classification.data.Data;
 
-public class CustomDialog extends Dialog {
+public class ExplanationDialog extends Dialog {
 
     private String text;
     private ImageView itemImage;
@@ -19,7 +19,7 @@ public class CustomDialog extends Dialog {
 
     private StringBuffer explanation = new StringBuffer("\n");
 
-    public CustomDialog(@NonNull Context context, String text){
+    public ExplanationDialog(@NonNull Context context, String text){
         super(context);
         this.text = text;
     }
@@ -28,7 +28,7 @@ public class CustomDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.custom_dialog);
+        setContentView(R.layout.explanation_dialog);
 
         itemImage = findViewById(R.id.dialog_image);
         itemClassification = findViewById(R.id.select_classification);

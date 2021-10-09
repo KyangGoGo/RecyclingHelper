@@ -62,7 +62,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     borderedText = new BorderedText(textSizePx);
     borderedText.setTypeface(Typeface.MONOSPACE);
 
-    recreateClassifier(getDevice(), getNumThreads());
+    recreateClassifier(getDevice(), getNumThreads(), "lobe");
     if (classifier == null) {
       LOGGER.e("No classifier on preview!");
       return;
@@ -79,10 +79,17 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
   }
 
   @Override
+  protected void runYolo(Device device, int numThreads, String modelName) {
+    recreateClassifier(device, numThreads, modelName);
+//    final List<Classifier.Recognition> results =
+//            classifier.recognizeImage(rgbFrameBitmap, sensorOrientation);
+//    return results;
+  }
+
+  @Override
   protected void processImage() {
     rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight);
     final int cropSize = Math.min(previewWidth, previewHeight);
-
     runInBackground(
         new Runnable() {
           @Override
@@ -120,10 +127,10 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     }
     final Device device = getDevice();
     final int numThreads = getNumThreads();
-    runInBackground(() -> recreateClassifier(device, numThreads));
+    runInBackground(() -> recreateClassifier(device, numThreads, "lobe"));
   }
 
-  private void recreateClassifier(Device device, int numThreads) {
+  protected void recreateClassifier(Device device, int numThreads, String modelName) {
     if (classifier != null) {
       LOGGER.d("Closing classifier.");
       classifier.close();
@@ -132,13 +139,16 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     try {
       LOGGER.d(
           "Creating classifier (device=%s, numThreads=%d)", device, numThreads);
-      classifier = Classifier.create(this, device, numThreads);
+      classifier = Classifier.create(this, device, numThreads, modelName);
+      LOGGER.d("생성 완료");
     } catch (IOException e) {
       LOGGER.e(e, "Failed to create classifier.");
     }
 
     // Updates the input image size.
     imageSizeX = classifier.getImageSizeX();
+    LOGGER.d("x생성 완료");
     imageSizeY = classifier.getImageSizeY();
+    LOGGER.d("y생성 완료");
   }
 }

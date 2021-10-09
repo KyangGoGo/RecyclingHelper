@@ -20,6 +20,8 @@ import android.graphics.Bitmap;
 import android.graphics.RectF;
 import android.os.SystemClock;
 import android.os.Trace;
+import android.util.Log;
+
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
@@ -96,10 +98,10 @@ public abstract class Classifier {
    * @param numThreads The number of threads to use for classification.
    * @return A classifier with the desired configuration.
    */
-  public static Classifier create(Activity activity, Device device, int numThreads)
+  public static Classifier create(Activity activity, Device device, int numThreads, String modelName)
       throws IOException {
 
-    return new ClassifierFloatMobileNet(activity, device, numThreads);
+    return new ClassifierFloatMobileNet(activity, device, numThreads, modelName);
   }
 
   /** An immutable result returned by a Classifier describing what was recognized. */
@@ -173,8 +175,9 @@ public abstract class Classifier {
   }
 
   /** Initializes a {@code Classifier}. */
-  protected Classifier(Activity activity, Device device, int numThreads) throws IOException {
-    tfliteModel = FileUtil.loadMappedFile(activity, getModelPath());
+  protected Classifier(Activity activity, Device device, int numThreads, String modelName)
+          throws IOException {
+    tfliteModel = FileUtil.loadMappedFile(activity, getModelPath(modelName));
     switch (device) {
       case GPU:
         gpuDelegate = new GpuDelegate();
@@ -188,7 +191,7 @@ public abstract class Classifier {
     tflite = new Interpreter(tfliteModel, tfliteOptions);
 
     // Loads labels out from the label file.
-    labels = FileUtil.loadLabels(activity, getLabelPath());
+    labels = FileUtil.loadLabels(activity, getLabelPath(modelName));
 
     // Reads type and shape of input and output tensors, respectively.
     int imageTensorIndex = 0;
@@ -316,10 +319,10 @@ public abstract class Classifier {
   }
 
   /** Gets the name of the model file stored in Assets. */
-  protected abstract String getModelPath();
+  protected abstract String getModelPath(String modelName);
 
   /** Gets the name of the label file stored in Assets. */
-  protected abstract String getLabelPath();
+  protected abstract String getLabelPath(String modelName);
 
   /** Gets the TensorOperator to nomalize the input image in preprocessing. */
   protected abstract TensorOperator getPreprocessNormalizeOp();

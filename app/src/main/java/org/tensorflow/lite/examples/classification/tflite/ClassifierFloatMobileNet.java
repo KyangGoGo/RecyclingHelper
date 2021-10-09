@@ -16,6 +16,8 @@ limitations under the License.
 package org.tensorflow.lite.examples.classification.tflite;
 
 import android.app.Activity;
+import android.util.Log;
+
 import java.io.IOException;
 import org.tensorflow.lite.examples.classification.tflite.Classifier.Device;
 import org.tensorflow.lite.support.common.TensorOperator;
@@ -42,18 +44,34 @@ public class ClassifierFloatMobileNet extends Classifier {
    *
    * @param activity
    */
-  public ClassifierFloatMobileNet(Activity activity, Device device, int numThreads)
+  public ClassifierFloatMobileNet(Activity activity, Device device, int numThreads, String modelName)
       throws IOException {
-    super(activity, device, numThreads);
+    super(activity, device, numThreads, modelName);
   }
 
   @Override
-  protected String getModelPath() {
-    return "model.tflite";
+  protected String getModelPath(String modelName) {
+    switch (modelName){
+      case "lobe" :
+        return "model.tflite";
+      case "플라스틱류" :
+        return "plastic.tflite";
+      default:
+        return "model.tflite";
+    }
   }
 
   @Override
-  protected String getLabelPath() {
+  protected String getLabelPath(String modelName) {
+    switch (modelName){
+      case "lobe" :
+        Log.d("rhwlgns", "lobe");
+        return "labels.txt";
+      case "플라스틱류" :
+        Log.d("rhwlgns", "plastic");
+        return "plastic.txt";
+    }
+    Log.d("rhwlgns", "default");
     return "labels.txt";
   }
 

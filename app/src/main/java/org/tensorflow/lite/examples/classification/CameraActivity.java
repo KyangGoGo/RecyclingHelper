@@ -41,6 +41,7 @@ import android.os.HandlerThread;
 import android.os.Trace;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.util.Size;
 import android.view.Display;
 import android.view.Surface;
@@ -49,6 +50,7 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -62,11 +64,13 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.nio.ByteBuffer;
 import java.util.List;
 
-import org.tensorflow.lite.examples.classification.customdialog.CustomDialog;
+import org.tensorflow.lite.examples.classification.customdialog.ExplanationDialog;
+import org.tensorflow.lite.examples.classification.customdialog.SeparationDialog;
 import org.tensorflow.lite.examples.classification.data.Data;
 import org.tensorflow.lite.examples.classification.data.Tip;
 import org.tensorflow.lite.examples.classification.env.ImageUtils;
 import org.tensorflow.lite.examples.classification.env.Logger;
+import org.tensorflow.lite.examples.classification.tflite.Classifier;
 import org.tensorflow.lite.examples.classification.tflite.Classifier.Device;
 import org.tensorflow.lite.examples.classification.tflite.Classifier.Recognition;
 
@@ -114,7 +118,8 @@ public abstract class CameraActivity extends AppCompatActivity
   private Device device = Device.CPU;
   private int numThreads = -1;
 
-  private CustomDialog customDialog;
+  private ExplanationDialog explanationDialog;
+  private SeparationDialog separationDialog;
 
   private ProgressBar recognitionProgressbar,
       recognitionProgressbar1,
@@ -125,6 +130,8 @@ public abstract class CameraActivity extends AppCompatActivity
       recognitionRelativeLayout2;
 
   private Data data;
+
+  private Button yoloButton;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -227,10 +234,14 @@ public abstract class CameraActivity extends AppCompatActivity
     recognitionProgressbar1 = findViewById(R.id.detected_item_progress1);
     recognitionProgressbar2 = findViewById(R.id.detected_item_progress2);
 
+    //yolo 버튼
+    yoloButton = findViewById(R.id.yolo);
+
     //결과값 클릭 이벤트 설정
     recognitionRelativeLayout.setOnClickListener(this);
     recognitionRelativeLayout1.setOnClickListener(this);
     recognitionRelativeLayout2.setOnClickListener(this);
+    yoloButton.setOnClickListener(this);
   }
 
   protected int[] getRgbBytes() {
@@ -649,6 +660,8 @@ public abstract class CameraActivity extends AppCompatActivity
     }
   }
 
+  protected abstract void runYolo(Device device, int numThreads, String modelName);
+
   protected abstract void processImage();
 
   protected abstract void onPreviewSizeChosen(final Size size, final int rotation);
@@ -658,6 +671,8 @@ public abstract class CameraActivity extends AppCompatActivity
   protected abstract Size getDesiredPreviewFrameSize();
 
   protected abstract void onInferenceConfigurationChanged();
+
+  protected abstract void recreateClassifier(Device device, int numThreads, String modelName);
 
   @Override
   public void onClick(View v) {
@@ -676,11 +691,13 @@ public abstract class CameraActivity extends AppCompatActivity
       setNumThreads(--numThreads);
       threadsTextView.setText(String.valueOf(numThreads));
     } else if (v.getId() == R.id.item_relative){ //첫 번째로 확률이 높은 것 클릭
-      showDialog((String) recognitionTextView.getText());
+      showExplanationDialog((String) recognitionTextView.getText());
     } else if (v.getId() == R.id.item1_relative){ //두 번째로 확률이 높은 것 클릭
-      showDialog((String) recognition1TextView.getText());
+      showExplanationDialog((String) recognition1TextView.getText());
     } else if (v.getId() == R.id.item2_relative){ //세 번째로 확률이 높은 것 클릭
-      showDialog((String) recognition2TextView.getText());
+      showExplanationDialog((String) recognition2TextView.getText());
+    } else if (v.getId() == R.id.yolo){
+      showSeparationDialog();
     }
   }
 
@@ -697,29 +714,29 @@ public abstract class CameraActivity extends AppCompatActivity
   }
 
   //Dialog 함수
-  public void showDialog(String title){
-    customDialog = new CustomDialog(CameraActivity.this, title);
+  public void showExplanationDialog(String title){
+    explanationDialog = new ExplanationDialog(CameraActivity.this, title);
 
    //모서리 둥굴게 만들기
-    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    explanationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    explanationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-    customDialog.show(); // 다이얼로그 띄우기
+    explanationDialog.show(); // 다이얼로그 띄우기
     //자세히 보기 버튼
-    customDialog.findViewById(R.id.detail_button).setOnClickListener(new View.OnClickListener() {
+    explanationDialog.findViewById(R.id.detail_button).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        customDialog.dismiss();
+        explanationDialog.dismiss();
         Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
         intent.putExtra("title", title);
         startActivity(intent);
       }
     });
     // 닫기 버튼
-    customDialog.findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
+    explanationDialog.findViewById(R.id.close_button).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        customDialog.dismiss();
+        explanationDialog.dismiss();
       }
     });
 
@@ -728,11 +745,24 @@ public abstract class CameraActivity extends AppCompatActivity
     Point size = new Point();
     display.getSize(size);
 
-    Window window = customDialog.getWindow();
+    Window window = explanationDialog.getWindow();
 
     int x = (int)(size.x * 0.8f);
     int y = (int)(size.y * 0.7f);
 
     window.setLayout(x, y);
+  }
+
+  public void showSeparationDialog(){
+//    separationDialog = new SeparationDialog(CameraActivity.this);
+//
+//    //모서리 둥굴게 만들기
+//    separationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//    separationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//    separationDialog.show();
+
+    Log.d("qweqwe", (String) recognitionTextView.getText());
+//    runYolo(getDevice(), getNumThreads(), (String) recognitionTextView.getText());
+
   }
 }
