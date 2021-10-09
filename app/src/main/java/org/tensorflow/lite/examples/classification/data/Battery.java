@@ -29,6 +29,8 @@ public class Battery extends Data {
     public static final Integer[][] warningImage = {{}};
     public static final String[][] warningMessage = {{}};
 
+    public static final String[] numberOfCases = {};
+
     public Battery() {
         super(classification,
                 discharge_day_text,
@@ -42,6 +44,7 @@ public class Battery extends Data {
                 warningText,
                 warningContent,
                 warningImage,
-                warningMessage);
+                warningMessage,
+                numberOfCases);
     }
 }

@@ -57,6 +57,8 @@ public class Glass extends Data {
             {"유독물 병"}
     };
 
+    public static final String[] numberOfCases = {};
+
     public Glass() {
         super(classification,
                 discharge_day_text,
@@ -70,6 +72,7 @@ public class Glass extends Data {
                 warningText,
                 warningContent,
                 warningImage,
-                warningMessage);
+                warningMessage,
+                numberOfCases);
     }
 }

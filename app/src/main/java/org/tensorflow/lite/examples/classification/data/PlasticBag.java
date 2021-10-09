@@ -41,6 +41,7 @@ public class PlasticBag extends Data {
             {"얼음팩"},
             {"혼합재질봉투"}
     };
+    public static final String[] numberOfCases = {};
 
     public PlasticBag() {
         super(classification,
@@ -55,6 +56,7 @@ public class PlasticBag extends Data {
                 warningText,
                 warningContent,
                 warningImage,
-                warningMessage);
+                warningMessage,
+                numberOfCases);
     }
 }

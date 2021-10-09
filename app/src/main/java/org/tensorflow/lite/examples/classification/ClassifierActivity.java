@@ -79,11 +79,11 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
   }
 
   @Override
-  protected void runYolo(Device device, int numThreads, String modelName) {
+  protected List<Classifier.Recognition> runYolo(Device device, int numThreads, String modelName) {
     recreateClassifier(device, numThreads, modelName);
-//    final List<Classifier.Recognition> results =
-//            classifier.recognizeImage(rgbFrameBitmap, sensorOrientation);
-//    return results;
+    final List<Classifier.Recognition> results =
+            classifier.recognizeImage(rgbFrameBitmap, sensorOrientation);
+    return results;
   }
 
   @Override

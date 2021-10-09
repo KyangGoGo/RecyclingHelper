@@ -50,6 +50,23 @@ public class Paper extends Data {
             {"기름 오염", "음식물 오염"},
     };
 
+    /*
+      뚜껑 : lid
+      라벨 : label
+      내용물 : contents
+      셋다 아님 : pure
+    */
+    public static final String[] numberOfCases = {
+            "pure",
+            "Lid",
+            "label",
+            "contents",
+            "lid_label",
+            "lid_contents",
+            "label_contents",
+            "lid_label_contents"
+    };
+
     public Paper() {
         super(classification,
                 discharge_day_text,
@@ -63,6 +80,7 @@ public class Paper extends Data {
                 warningText,
                 warningContent,
                 warningImage,
-                warningMessage);
+                warningMessage,
+                numberOfCases);
     }
 }

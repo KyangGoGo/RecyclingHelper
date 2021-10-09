@@ -18,6 +18,7 @@ public class Data {
     private final String[] warningContent;
     private final Integer[][] warningImage;
     private final String[][] warningMessage;
+    private final String[] numberOfCases;
 
     public static Integer viewPage = 3;
 
@@ -33,7 +34,8 @@ public class Data {
                 String warningText,
                 String[] warningContent,
                 Integer[][] warningImage,
-                String[][] warningMessage) {
+                String[][] warningMessage,
+                String[] numberOfCases) {
         this.classification = classification;
         this.discharge_day_text = discharge_day_text;
         this.discharge_day_images = discharge_day_images;
@@ -47,6 +49,7 @@ public class Data {
         this.warningContent = warningContent;
         this.warningImage = warningImage;
         this.warningMessage = warningMessage;
+        this.numberOfCases = numberOfCases;
     }
 
     public static Data getInstance(String text){
@@ -122,6 +125,10 @@ public class Data {
 
     public String[][] getWarningMessage() {
         return warningMessage;
+    }
+
+    public String[] getNumberOfCases() {
+        return numberOfCases;
     }
 
     public static int getScreenSize(Activity activity, int divisor){

@@ -29,6 +29,7 @@ public class Styrofoam extends Data {
     public static final String[] warningContent = {};
     public static final Integer[][] warningImage = {{}};
     public static final String[][] warningMessage = {{}};
+    public static final String[] numberOfCases = {};
 
     public Styrofoam() {
         super(classification,
@@ -43,6 +44,7 @@ public class Styrofoam extends Data {
                 warningText,
                 warningContent,
                 warningImage,
-                warningMessage);
+                warningMessage,
+                numberOfCases);
     }
 }

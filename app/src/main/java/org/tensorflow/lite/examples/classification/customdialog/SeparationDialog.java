@@ -10,10 +10,11 @@ import org.tensorflow.lite.examples.classification.R;
 
 public class SeparationDialog extends Dialog {
 
+    private String topPercentItem;
 
-    public SeparationDialog(@NonNull Context context){
+    public SeparationDialog(@NonNull Context context, String topPercentItem){
         super(context);
-
+        this.topPercentItem = topPercentItem;
     }
 
     @Override

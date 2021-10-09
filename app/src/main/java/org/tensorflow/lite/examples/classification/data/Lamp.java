@@ -38,6 +38,8 @@ public class Lamp extends Data {
             {"깨진 형광등"}
     };
 
+    public static final String[] numberOfCases = {};
+
     public Lamp() {
         super(classification,
                 discharge_day_text,
@@ -51,6 +53,7 @@ public class Lamp extends Data {
                 warningText,
                 warningContent,
                 warningImage,
-                warningMessage);
+                warningMessage,
+                numberOfCases);
     }
 }

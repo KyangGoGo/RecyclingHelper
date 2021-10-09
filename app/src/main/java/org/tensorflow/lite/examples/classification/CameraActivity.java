@@ -660,7 +660,7 @@ public abstract class CameraActivity extends AppCompatActivity
     }
   }
 
-  protected abstract void runYolo(Device device, int numThreads, String modelName);
+  protected abstract List<Classifier.Recognition> runYolo(Device device, int numThreads, String modelName);
 
   protected abstract void processImage();
 
@@ -754,15 +754,28 @@ public abstract class CameraActivity extends AppCompatActivity
   }
 
   public void showSeparationDialog(){
-//    separationDialog = new SeparationDialog(CameraActivity.this);
-//
-//    //모서리 둥굴게 만들기
-//    separationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//    separationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//    separationDialog.show();
+    String topPercentItem="";
 
-    Log.d("qweqwe", (String) recognitionTextView.getText());
-//    runYolo(getDevice(), getNumThreads(), (String) recognitionTextView.getText());
+    this.onPause();
+    // Log.d("qweqwe", (String) recognitionTextView.getText());
 
+    //머신러닝을 돌림
+    List<Classifier.Recognition> results =
+            runYolo(getDevice(), getNumThreads(), (String) recognitionTextView.getText());
+
+    //가장 확률이 높은것을 찾음
+    data = Data.getInstance((String) recognitionTextView.getText());
+
+    for(String type : data.getNumberOfCases()){
+      if(type.equals(results.get(0))){
+        topPercentItem = type;
+      }
+    }
+    separationDialog = new SeparationDialog(CameraActivity.this, topPercentItem);
+
+    //모서리 둥굴게 만들기
+    separationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    separationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    separationDialog.show();
   }
 }

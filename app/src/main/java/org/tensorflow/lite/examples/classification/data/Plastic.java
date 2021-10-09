@@ -52,6 +52,8 @@ public class Plastic extends Data {
             {"일회용 컵"}
     };
 
+    public static final String[] numberOfCases = {};
+
     public Plastic() {
         super(classification,
                 discharge_day_text,
@@ -65,6 +67,7 @@ public class Plastic extends Data {
                 warningText,
                 warningContent,
                 warningImage,
-                warningMessage);
+                warningMessage,
+                numberOfCases);
     }
 }

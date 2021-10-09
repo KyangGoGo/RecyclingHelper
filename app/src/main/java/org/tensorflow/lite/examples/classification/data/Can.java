@@ -40,6 +40,9 @@ public class Can extends Data {
             {"폐인트통"}
     };
 
+    public static final String[] numberOfCases = {};
+
+
     public Can() {
         super(classification,
                 discharge_day_text,
@@ -53,6 +56,7 @@ public class Can extends Data {
                 warningText,
                 warningContent,
                 warningImage,
-                warningMessage);
+                warningMessage,
+                numberOfCases);
     }
 }
