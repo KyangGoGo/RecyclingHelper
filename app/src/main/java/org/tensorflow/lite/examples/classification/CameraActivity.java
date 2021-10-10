@@ -771,11 +771,11 @@ public abstract class CameraActivity extends AppCompatActivity
         topPercentItem = type;
       }
     }
-    separationDialog = new SeparationDialog(CameraActivity.this, topPercentItem);
-
-    //모서리 둥굴게 만들기
-    separationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    separationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    separationDialog.show();
+//    separationDialog = new SeparationDialog(CameraActivity.this, topPercentItem);
+//
+//    //모서리 둥굴게 만들기
+//    separationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//    separationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//    separationDialog.show();
   }
 }
