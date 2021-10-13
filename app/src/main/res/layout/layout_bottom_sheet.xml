@@ -407,8 +407,8 @@
             android:gravity="center_horizontal"
             android:background="@drawable/additional_explanation"/>
         <Button
+            android:id="@+id/yolo_model"
             android:text="분리배출안내"
-            android:id="@+id/yolo"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
     </LinearLayout>

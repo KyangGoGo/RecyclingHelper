@@ -235,7 +235,7 @@ public abstract class CameraActivity extends AppCompatActivity
     recognitionProgressbar2 = findViewById(R.id.detected_item_progress2);
 
     //yolo 버튼
-    yoloButton = findViewById(R.id.yolo);
+    yoloButton = findViewById(R.id.yolo_model);
 
     //결과값 클릭 이벤트 설정
     recognitionRelativeLayout.setOnClickListener(this);
@@ -696,7 +696,7 @@ public abstract class CameraActivity extends AppCompatActivity
       showExplanationDialog((String) recognition1TextView.getText());
     } else if (v.getId() == R.id.item2_relative){ //세 번째로 확률이 높은 것 클릭
       showExplanationDialog((String) recognition2TextView.getText());
-    } else if (v.getId() == R.id.yolo){
+    } else if (v.getId() == R.id.yolo_model){
       showSeparationDialog();
     }
   }
