@@ -763,6 +763,9 @@ public abstract class CameraActivity extends AppCompatActivity
     List<Classifier.Recognition> results =
             runYolo(getDevice(), getNumThreads(), (String) recognitionTextView.getText());
 
+    for(int i=0; i<results.size(); i++){
+      Log.d("yolo결과", results.get(i).toString());
+    }
     //가장 확률이 높은것을 찾음
     data = Data.getInstance((String) recognitionTextView.getText());
 
