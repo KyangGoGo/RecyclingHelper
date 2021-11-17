@@ -125,6 +125,7 @@ public abstract class CameraActivity extends AppCompatActivity
       recognitionRelativeLayout2;
 
   private Data data;
+  private boolean debug= false;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -734,5 +735,9 @@ public abstract class CameraActivity extends AppCompatActivity
     int y = (int)(size.y * 0.7f);
 
     window.setLayout(x, y);
+  }
+
+  public boolean isDebug() {
+    return debug;
   }
 }
