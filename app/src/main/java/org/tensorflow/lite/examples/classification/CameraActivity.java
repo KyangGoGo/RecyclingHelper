@@ -662,6 +662,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
   protected abstract void runYolov5(CustomDialog customDialog);
 
+  protected abstract void initYolov5();
+
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.plus) {
@@ -702,6 +704,7 @@ public abstract class CameraActivity extends AppCompatActivity
   //Dialog 함수
   public void showDialog(String title){
     customDialog = new CustomDialog(CameraActivity.this, title);
+    initYolov5();
     runYolov5(customDialog);
    //모서리 둥굴게 만들기
     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

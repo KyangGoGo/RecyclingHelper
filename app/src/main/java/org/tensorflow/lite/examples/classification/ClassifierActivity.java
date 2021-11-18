@@ -26,7 +26,9 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.os.AsyncTask;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Size;
 import android.util.TypedValue;
 import android.widget.ImageView;
@@ -95,34 +97,16 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
   @Override
   public void onPreviewSizeChosen(final Size size, final int rotation) {
     final float textSizePx =
-        TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, getResources().getDisplayMetrics());
+            TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, getResources().getDisplayMetrics());
     borderedText = new BorderedText(textSizePx);
     borderedText.setTypeface(Typeface.MONOSPACE);
 
-    tracker = new MultiBoxTracker(this);
-
     recreateClassifier(getDevice(), getNumThreads());
-    final String modelString = "yolov5s-fp16.tflite";
-
-    try {
-      detector=DetectorFactory.getDetector(getAssets(),modelString);
-    } catch (IOException e) {
-      e.printStackTrace();
-      LOGGER.e(e, "Exception initializing classifier!");
-      Toast toast =
-              Toast.makeText(
-                      getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
-      toast.show();
-      finish();
-    }
-
     if (classifier == null) {
       LOGGER.e("No classifier on preview!");
       return;
     }
-
-    int cropSize = detector.getInputSize();
 
     previewWidth = size.getWidth();
     previewHeight = size.getHeight();
@@ -132,121 +116,41 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
     LOGGER.i("Initializing at size %dx%d", previewWidth, previewHeight);
     rgbFrameBitmap = Bitmap.createBitmap(previewWidth, previewHeight, Config.ARGB_8888);
-    croppedBitmap = Bitmap.createBitmap(cropSize, cropSize, Config.ARGB_8888);
-
-    frameToCropTransform =
-            ImageUtils.getTransformationMatrix(
-                    previewWidth, previewHeight,
-                    cropSize, cropSize,
-                    sensorOrientation, MAINTAIN_ASPECT);
-
-    cropToFrameTransform = new Matrix();
-    frameToCropTransform.invert(cropToFrameTransform);
-
-    trackingOverlay = (OverlayView) findViewById(R.id.tracking_overlay);
-    trackingOverlay.addCallback(
-            new OverlayView.DrawCallback() {
-              @Override
-              public void drawCallback(final Canvas canvas) {
-                tracker.draw(canvas);
-                if (isDebug()) {
-                  tracker.drawDebug(canvas);
-                }
-              }
-            });
-
-    tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
-
   }
 
   @Override
   protected void processImage() {
-    ++timestamp;
-    final long currTimestamp = timestamp;
-    trackingOverlay.postInvalidate();
-
-    // No mutex needed as this method is not reentrant.
-    if (computingDetection) {
-      readyForNextImage();
-      return;
-    }
-
-    computingDetection = true;
-
     rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight);
     final int cropSize = Math.min(previewWidth, previewHeight);
 
-    readyForNextImage();
-
-    final Canvas canvas = new Canvas(croppedBitmap);
-    canvas.drawBitmap(rgbFrameBitmap, frameToCropTransform, null);
-    // For examining the actual TF input.
-    if (SAVE_PREVIEW_BITMAP) {
-      ImageUtils.saveBitmap(croppedBitmap);
-    }
-
     runInBackground(
-        new Runnable() {
-          @Override
-          public void run() {
-            if (classifier != null) {
-              final long startTime = SystemClock.uptimeMillis();
-              final List<Classifier.Recognition> results =
-                  classifier.recognizeImage(rgbFrameBitmap, sensorOrientation);
-              final List<Detector.Recognition> detectorResults = detector.recognizeImage(croppedBitmap);
-              lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
-              LOGGER.v("Detect: %s", results);
+            new Runnable() {
+              @Override
+              public void run() {
+                if (classifier != null) {
+                  final long startTime = SystemClock.uptimeMillis();
+                  final List<Classifier.Recognition> results =
+                          classifier.recognizeImage(rgbFrameBitmap, sensorOrientation);
+                  lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+                  LOGGER.v("Detect: %s", results);
 
-              cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
-              final Canvas canvas = new Canvas(cropCopyBitmap);
-              final Paint paint = new Paint();
-              paint.setColor(Color.RED);
-              paint.setStyle(Paint.Style.STROKE);
-              paint.setStrokeWidth(2.0f);
 
-              float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
-              switch (MODE) {
-                case TF_OD_API:
-                  minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
-                  break;
-              }
-
-              final List<Detector.Recognition> mappedRecognitions =
-                      new LinkedList<Detector.Recognition>();
-
-              for (final Detector.Recognition result : detectorResults) {
-                final RectF location = result.getLocation();
-                if (location != null && result.getConfidence() >= minimumConfidence) {
-                  canvas.drawRect(location, paint);
-
-                  cropToFrameTransform.mapRect(location);
-
-                  result.setLocation(location);
-                  mappedRecognitions.add(result);
+                  runOnUiThread(
+                          new Runnable() {
+                            @Override
+                            public void run() {
+                              showResultsInBottomSheet(results);
+                              showFrameInfo(previewWidth + "x" + previewHeight);
+                              showCropInfo(imageSizeX + "x" + imageSizeY);
+                              showCameraResolution(cropSize + "x" + cropSize);
+                              showRotationInfo(String.valueOf(sensorOrientation));
+                              showInference(lastProcessingTimeMs + "ms");
+                            }
+                          });
                 }
+                readyForNextImage();
               }
-
-              tracker.trackResults(mappedRecognitions, currTimestamp);
-              trackingOverlay.postInvalidate();
-
-              computingDetection = false;
-
-              runOnUiThread(
-                  new Runnable() {
-                    @Override
-                    public void run() {
-                      showResultsInBottomSheet(results);
-                      showFrameInfo(previewWidth + "x" + previewHeight);
-                      showCropInfo(imageSizeX + "x" + imageSizeY);
-                      showCameraResolution(cropSize + "x" + cropSize);
-                      showRotationInfo(String.valueOf(sensorOrientation));
-                      showInference(lastProcessingTimeMs + "ms");
-                    }
-                  });
-            }
-            readyForNextImage();
-          }
-        });
+            });
   }
 
   @Override
@@ -263,14 +167,6 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
   @Override
   protected void runYolov5(CustomDialog customDialog) {
 
-//    // No mutex needed as this method is not reentrant.
-//    if (computingDetection) {
-//      readyForNextImage();
-//      return;
-//    }
-    LOGGER.i("runYolov5");
-//    computingDetection = true;
-
     rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight);
 
     readyForNextImage();
@@ -281,47 +177,38 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     if (SAVE_PREVIEW_BITMAP) {
       ImageUtils.saveBitmap(croppedBitmap);
     }
+    BackgroundTask backgroundTask=new BackgroundTask(customDialog);
+    backgroundTask.execute();
+  }
 
-    runInBackground(
-            new Runnable() {
-              @Override
-              public void run() {
-                final long startTime = SystemClock.uptimeMillis();
-                final List<Detector.Recognition> results = detector.recognizeImage(croppedBitmap);
-                lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+  @Override
+  protected void initYolov5() {
+    final String modelString = "yolov5s-fp16.tflite";
 
-                cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
-                final Canvas canvas = new Canvas(cropCopyBitmap);
-                final Paint paint = new Paint();
-                paint.setColor(Color.RED);
-//                paint.setStyle(Paint.Style.STROKE);
-                paint.setStrokeWidth(2.0f);
+    try {
+      detector = DetectorFactory.getDetector(getAssets(), modelString);
+    } catch (IOException e) {
+      e.printStackTrace();
+      LOGGER.e(e, "Exception initializing classifier!");
+      Toast toast =
+              Toast.makeText(
+                      getApplicationContext(), "Classifier could not be initialized", Toast.LENGTH_SHORT);
+      toast.show();
+      finish();
+    }
 
-                float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
-                switch (MODE) {
-                  case TF_OD_API:
-                    minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
-                    break;
-                }
+    int cropSize = detector.getInputSize();
 
-                for (final Detector.Recognition result : results) {
-                  final RectF location = result.getLocation();
-                  if (location != null && result.getConfidence() >= minimumConfidence) {
-                    canvas.drawRect(location, paint);
+    croppedBitmap = Bitmap.createBitmap(cropSize, cropSize, Config.ARGB_8888);
 
-                  }
-                }
+    frameToCropTransform =
+            ImageUtils.getTransformationMatrix(
+                    previewWidth, previewHeight,
+                    cropSize, cropSize,
+                    sensorOrientation, MAINTAIN_ASPECT);
 
-                runOnUiThread(new Runnable() {
-                  @Override
-                  public void run() {
-                    ImageView imageView=customDialog.findViewById(R.id.dialog_image);
-                    imageView.setImageDrawable(new BitmapDrawable(getResources(),cropCopyBitmap));
-                  }
-                });
-//                computingDetection = false;
-              }
-            });
+    cropToFrameTransform = new Matrix();
+    frameToCropTransform.invert(cropToFrameTransform);
   }
 
   private void recreateClassifier(Device device, int numThreads) {
@@ -345,5 +232,73 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
   private enum DetectorMode {
     TF_OD_API;
+  }
+
+  class BackgroundTask extends AsyncTask<Long, Bitmap, Bitmap> {
+    CustomDialog customDialog;
+
+    public BackgroundTask(CustomDialog customDialog) {
+      super();
+      this.customDialog=customDialog;
+    }
+
+    @Override
+    protected Bitmap doInBackground(Long... longs) {
+      final long startTime = SystemClock.uptimeMillis();
+      final List<Detector.Recognition> results = detector.recognizeImage(croppedBitmap);
+      lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+
+      cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
+      final Canvas canvas = new Canvas(cropCopyBitmap);
+      final Paint paint = new Paint();
+      paint.setColor(Color.RED);
+      paint.setStyle(Paint.Style.STROKE);
+      paint.setStrokeWidth(10.0f);
+      paint.setStrokeCap(Paint.Cap.ROUND);
+      paint.setStrokeJoin(Paint.Join.ROUND);
+      paint.setStrokeMiter(100);
+
+
+      final float textSizePx =
+              TypedValue.applyDimension(
+                      TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, getResources().getDisplayMetrics());
+      Paint interiorPaint = new Paint();
+      interiorPaint.setTextSize(textSizePx);
+      interiorPaint.setColor(Color.WHITE);
+      interiorPaint.setStyle(Paint.Style.FILL);
+      interiorPaint.setAntiAlias(false);
+      interiorPaint.setAlpha(255);
+
+      float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
+      switch (MODE) {
+        case TF_OD_API:
+          minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
+          break;
+      }
+
+      for (final Detector.Recognition result : results) {
+        final RectF location = result.getLocation();
+        float cornerSize = Math.min(location.width(), location.height()) / 8.0f;
+
+        final String labelString =
+                !TextUtils.isEmpty(result.getTitle())
+                        ? String.format("%s ", result.getTitle())
+                        : String.format("%.2f", (100 * result.getConfidence()));
+        if (location != null && result.getConfidence() >= minimumConfidence) {
+          canvas.drawRoundRect(location, cornerSize, cornerSize, paint);
+          canvas.drawText(labelString, location.left+cornerSize, (location.top+textSizePx), interiorPaint);
+        }
+      }
+      LOGGER.d("doInBackground 실행");
+      return cropCopyBitmap;
+    }
+
+    @Override
+    protected void onPostExecute(Bitmap bitmap) {
+      super.onPostExecute(bitmap);
+      ImageView imageView = customDialog.findViewById(R.id.dialog_image);
+      imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+      LOGGER.d("onPostExecute 실행");
+    }
   }
 }
