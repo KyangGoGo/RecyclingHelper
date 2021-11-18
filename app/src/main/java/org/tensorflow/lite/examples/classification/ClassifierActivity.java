@@ -24,16 +24,15 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
 import android.util.Size;
 import android.util.TypedValue;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-
+import org.tensorflow.lite.examples.classification.customdialog.CustomDialog;
 import org.tensorflow.lite.examples.classification.customview.OverlayView;
 import org.tensorflow.lite.examples.classification.env.BorderedText;
 import org.tensorflow.lite.examples.classification.env.ImageUtils;
@@ -44,6 +43,10 @@ import org.tensorflow.lite.examples.classification.tflite.Detector;
 import org.tensorflow.lite.examples.classification.tflite.DetectorFactory;
 import org.tensorflow.lite.examples.classification.tflite.YoloV5Detector;
 import org.tensorflow.lite.examples.classification.tracking.MultiBoxTracker;
+
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ClassifierActivity extends CameraActivity implements OnImageAvailableListener {
   private static final Logger LOGGER = new Logger();
@@ -256,6 +259,70 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     final Device device = getDevice();
     final int numThreads = getNumThreads();
     runInBackground(() -> recreateClassifier(device, numThreads));
+  }
+
+  @Override
+  protected void runYolov5(CustomDialog customDialog) {
+
+//    // No mutex needed as this method is not reentrant.
+//    if (computingDetection) {
+//      readyForNextImage();
+//      return;
+//    }
+    LOGGER.i("runYolov5");
+//    computingDetection = true;
+
+    rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight);
+
+    readyForNextImage();
+
+    final Canvas canvas = new Canvas(croppedBitmap);
+    canvas.drawBitmap(rgbFrameBitmap, frameToCropTransform, null);
+    // For examining the actual TF input.
+    if (SAVE_PREVIEW_BITMAP) {
+      ImageUtils.saveBitmap(croppedBitmap);
+    }
+
+    runInBackground(
+            new Runnable() {
+              @Override
+              public void run() {
+                final long startTime = SystemClock.uptimeMillis();
+                final List<Detector.Recognition> results = detector.recognizeImage(croppedBitmap);
+                lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+
+                cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
+                final Canvas canvas = new Canvas(cropCopyBitmap);
+                final Paint paint = new Paint();
+                paint.setColor(Color.RED);
+//                paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeWidth(2.0f);
+
+                float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
+                switch (MODE) {
+                  case TF_OD_API:
+                    minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
+                    break;
+                }
+
+                for (final Detector.Recognition result : results) {
+                  final RectF location = result.getLocation();
+                  if (location != null && result.getConfidence() >= minimumConfidence) {
+                    canvas.drawRect(location, paint);
+
+                  }
+                }
+
+                runOnUiThread(new Runnable() {
+                  @Override
+                  public void run() {
+                    ImageView imageView=customDialog.findViewById(R.id.dialog_image);
+                    imageView.setImageDrawable(new BitmapDrawable(getResources(),cropCopyBitmap));
+                  }
+                });
+//                computingDetection = false;
+              }
+            });
   }
 
   private void recreateClassifier(Device device, int numThreads) {

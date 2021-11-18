@@ -660,6 +660,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
   protected abstract void onInferenceConfigurationChanged();
 
+  protected abstract void runYolov5(CustomDialog customDialog);
+
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.plus) {
@@ -700,12 +702,13 @@ public abstract class CameraActivity extends AppCompatActivity
   //Dialog 함수
   public void showDialog(String title){
     customDialog = new CustomDialog(CameraActivity.this, title);
-
+    runYolov5(customDialog);
    //모서리 둥굴게 만들기
     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
     customDialog.show(); // 다이얼로그 띄우기
+
     //자세히 보기 버튼
     customDialog.findViewById(R.id.detail_button).setOnClickListener(new View.OnClickListener() {
       @Override
