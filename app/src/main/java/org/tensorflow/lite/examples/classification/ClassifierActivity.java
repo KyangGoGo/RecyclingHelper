@@ -82,7 +82,6 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
   private long timestamp = 0;
   private boolean computingDetection = false;
 
-
   @Override
   protected int getLayoutId() {
     return R.layout.camera_connection_fragment;

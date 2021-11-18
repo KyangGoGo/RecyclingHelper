@@ -1,4 +1,4 @@
-person
-bicycle
-car
-motorbike
+label
+label_lid
+lid
+none
