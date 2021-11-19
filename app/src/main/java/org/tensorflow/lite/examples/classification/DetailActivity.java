@@ -36,7 +36,7 @@ public class DetailActivity extends FragmentActivity {
 
     private Data data;
 
-    private int count;
+    private int count = Data.viewPage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,18 +46,19 @@ public class DetailActivity extends FragmentActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String title = bundle.getString("title");
+        byte[] arr = intent.getByteArrayExtra("test");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
+        //Log.d("qweqweqwe", bitmap.toString());
+
         if (title != null) {
             upperBarSetting(title);
+            if (data.getClassification().equals("플라스틱류")) count = 4;
         }
-
-
-        count = Data.viewPage;
-        if (data.getClassification().equals("플라스틱류")) count = 4;
 
         //ViewPager2
         mPager = findViewById(R.id.viewpager);
         //Adapter
-        pagerAdapter = new ViewPagerAdapter(this, count, data);
+        pagerAdapter = new ViewPagerAdapter(this, count, data, bitmap);
         mPager.setAdapter(pagerAdapter);
         //Indicator
         mIndicator = findViewById(R.id.indicator);

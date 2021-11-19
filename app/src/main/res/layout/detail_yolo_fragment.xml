@@ -23,7 +23,7 @@
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="match_parent">
-            <LinearLayout
+            <ImageView
                 android:id="@+id/yolo_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

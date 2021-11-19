@@ -16,6 +16,8 @@
 
 package org.tensorflow.lite.examples.classification;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -46,8 +48,8 @@ import org.tensorflow.lite.examples.classification.tflite.DetectorFactory;
 import org.tensorflow.lite.examples.classification.tflite.YoloV5Detector;
 import org.tensorflow.lite.examples.classification.tracking.MultiBoxTracker;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ClassifierActivity extends CameraActivity implements OnImageAvailableListener {
@@ -165,7 +167,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
   }
 
   @Override
-  protected void runYolov5(CustomDialog customDialog) {
+  protected void runYolov5(Intent intent,Activity activity) {
 
     rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight);
 
@@ -177,7 +179,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     if (SAVE_PREVIEW_BITMAP) {
       ImageUtils.saveBitmap(croppedBitmap);
     }
-    BackgroundTask backgroundTask=new BackgroundTask(customDialog);
+    BackgroundTask backgroundTask=new BackgroundTask(intent,activity);
     backgroundTask.execute();
   }
 
@@ -235,11 +237,13 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
   }
 
   class BackgroundTask extends AsyncTask<Long, Bitmap, Bitmap> {
-    CustomDialog customDialog;
+    private Activity activity;
+    private Intent intent;
 
-    public BackgroundTask(CustomDialog customDialog) {
+    public BackgroundTask(Intent intent,Activity activity) {
       super();
-      this.customDialog=customDialog;
+      this.activity=activity;
+      this.intent=intent;
     }
 
     @Override
@@ -296,8 +300,13 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     @Override
     protected void onPostExecute(Bitmap bitmap) {
       super.onPostExecute(bitmap);
-      ImageView imageView = customDialog.findViewById(R.id.dialog_image);
-      imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+      //intent.putExtra("yolov5Bitmap",bitmap);
+      ByteArrayOutputStream stream = new ByteArrayOutputStream();
+      bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+      byte[] byteArray = stream.toByteArray();
+      intent.putExtra("test", byteArray);
+
+      activity.startActivity(intent);
       LOGGER.d("onPostExecute 실행");
     }
   }

@@ -21,10 +21,12 @@ public class DetailYoloFragment extends Fragment {
     private Data data;
     private ViewGroup rootView;
     private TextView yoloText;
-    private LinearLayout yoloImage;
+    private Bitmap bitmap;
+    private ImageView yoloImage;
 
-    public DetailYoloFragment(Data data){
+    public DetailYoloFragment(Data data, Bitmap bitmap){
         this.data = data;
+        this.bitmap = bitmap;
     }
 
     @Override
@@ -37,6 +39,7 @@ public class DetailYoloFragment extends Fragment {
         yoloText.setText("플라스틱 이물질 제거 안내");
 
         yoloImage = rootView.findViewById(R.id.yolo_image);
+        yoloImage.setImageBitmap(bitmap);
 
         return rootView;
     }
