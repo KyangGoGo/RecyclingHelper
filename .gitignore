@@ -14,3 +14,4 @@
 cardboard TFLite/ 
 app/src/main/assets/model.tflite
 app/src/main/assets/labels.txt
+app/src/main/assets/plastic.tflite

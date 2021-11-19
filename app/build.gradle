@@ -44,7 +44,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite
     runtimeOnly group: 'org.tensorflow', name: 'tensorflow-lite', version: '2.4.0'
     // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite-gpu
-    implementation group: 'org.tensorflow', name: 'tensorflow-lite-gpu', version: '2.3.0'
+    implementation group: 'org.tensorflow', name: 'tensorflow-lite-gpu', version: '2.4.0'
     // https://mvnrepository.com/artifact/org.tensorflow/tensorflow-lite-support
     implementation group: 'org.tensorflow', name: 'tensorflow-lite-support', version: '0.1.0'
 

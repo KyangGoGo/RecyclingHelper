@@ -17,11 +17,13 @@
 package org.tensorflow.lite.examples.classification;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -125,6 +127,7 @@ public abstract class CameraActivity extends AppCompatActivity
       recognitionRelativeLayout2;
 
   private Data data;
+  private boolean debug= false;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -659,6 +662,10 @@ public abstract class CameraActivity extends AppCompatActivity
 
   protected abstract void onInferenceConfigurationChanged();
 
+  protected abstract void runYolov5(Intent intent, Activity activity);
+
+  protected abstract void initYolov5();
+
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.plus) {
@@ -699,20 +706,24 @@ public abstract class CameraActivity extends AppCompatActivity
   //Dialog 함수
   public void showDialog(String title){
     customDialog = new CustomDialog(CameraActivity.this, title);
+    initYolov5();
 
    //모서리 둥굴게 만들기
     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     customDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
     customDialog.show(); // 다이얼로그 띄우기
+
     //자세히 보기 버튼
     customDialog.findViewById(R.id.detail_button).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         customDialog.dismiss();
-        Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+        Intent intent = new Intent(CameraActivity.this, DetailActivity.class);
         intent.putExtra("title", title);
-        startActivity(intent);
+//        Bitmap bitmap=Bitmap.createBitmap(previewWidth, previewHeight, Bitmap.Config.ARGB_8888);
+//        intent.putExtra("yolov5Bitmap",bitmap);
+        runYolov5(intent, CameraActivity.this);
       }
     });
     // 닫기 버튼
@@ -734,5 +745,9 @@ public abstract class CameraActivity extends AppCompatActivity
     int y = (int)(size.y * 0.7f);
 
     window.setLayout(x, y);
+  }
+
+  public boolean isDebug() {
+    return debug;
   }
 }
