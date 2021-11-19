@@ -11,7 +11,7 @@ public class DetectorFactory {
             throws IOException {
         String labelFilename = "file:///android_asset/coco.txt";
         boolean isQuantized = false;
-        int inputSize = 640;
+        int inputSize = 416;
 
         return YoloV5Detector.create(assetManager, modelFilename, labelFilename, isQuantized,
                 inputSize);

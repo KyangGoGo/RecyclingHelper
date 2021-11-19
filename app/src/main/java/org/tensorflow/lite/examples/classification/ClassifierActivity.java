@@ -300,11 +300,10 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     @Override
     protected void onPostExecute(Bitmap bitmap) {
       super.onPostExecute(bitmap);
-      //intent.putExtra("yolov5Bitmap",bitmap);
       ByteArrayOutputStream stream = new ByteArrayOutputStream();
       bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
       byte[] byteArray = stream.toByteArray();
-      intent.putExtra("test", byteArray);
+      intent.putExtra("yolov5Bitmap", byteArray);
 
       activity.startActivity(intent);
       LOGGER.d("onPostExecute 실행");

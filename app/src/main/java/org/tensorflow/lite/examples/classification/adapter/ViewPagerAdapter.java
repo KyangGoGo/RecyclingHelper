@@ -51,7 +51,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     }
 
     public int getRealPosition(int position) {
-        if (data.getClassification().equals("플라스틱류")) count = 4;
         return position % count;
     }
 

@@ -35,6 +35,7 @@ public class DetailActivity extends FragmentActivity {
     private LinearLayout displayDay;
 
     private Data data;
+    private Bitmap bitmap;
 
     private int count = Data.viewPage;
 
@@ -46,12 +47,11 @@ public class DetailActivity extends FragmentActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String title = bundle.getString("title");
-        byte[] arr = intent.getByteArrayExtra("test");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
-        //Log.d("qweqweqwe", bitmap.toString());
+        byte[] arr = intent.getByteArrayExtra("yolov5Bitmap");
 
         if (title != null) {
             upperBarSetting(title);
+            bitmap = BitmapFactory.decodeByteArray(arr, 0, arr.length);
             if (data.getClassification().equals("플라스틱류")) count = 4;
         }
 
