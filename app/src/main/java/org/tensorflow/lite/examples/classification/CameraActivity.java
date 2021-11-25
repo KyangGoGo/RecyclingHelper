@@ -69,6 +69,7 @@ import org.tensorflow.lite.examples.classification.data.Data;
 import org.tensorflow.lite.examples.classification.data.Tip;
 import org.tensorflow.lite.examples.classification.env.ImageUtils;
 import org.tensorflow.lite.examples.classification.env.Logger;
+import org.tensorflow.lite.examples.classification.handler.BackPressCloseHandler;
 import org.tensorflow.lite.examples.classification.tflite.Classifier.Device;
 import org.tensorflow.lite.examples.classification.tflite.Classifier.Recognition;
 
@@ -128,6 +129,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
   private Data data;
   private boolean debug= false;
+
+  private BackPressCloseHandler backPressCloseHandler;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -234,6 +237,8 @@ public abstract class CameraActivity extends AppCompatActivity
     recognitionRelativeLayout.setOnClickListener(this);
     recognitionRelativeLayout1.setOnClickListener(this);
     recognitionRelativeLayout2.setOnClickListener(this);
+
+    backPressCloseHandler = new BackPressCloseHandler(this);
   }
 
   protected int[] getRgbBytes() {
@@ -701,6 +706,12 @@ public abstract class CameraActivity extends AppCompatActivity
   @Override
   public void onNothingSelected(AdapterView<?> parent) {
     // Do nothing.
+  }
+
+  @Override
+  public void onBackPressed() {
+    //super.onBackPressed();
+    backPressCloseHandler.onBackPressed();
   }
 
   //Dialog 함수
